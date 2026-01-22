@@ -56,19 +56,19 @@ https://uxscalelabs.online/
 
 | Category               | Scale                              | Items | Scale Type         | Link                                                                 |
 |------------------------|------------------------------------|-------|--------------------|----------------------------------------------------------------------|
-| Usability              | System Usability Scale (SUS)       | 10    | 5-point Likert     | [/sus](https://cfunkz.github.io/UX-Scale-Lab/#/sus)                  |
-| Usability              | UMUX                               | 4     | 7-point Likert     | [/umux](https://cfunkz.github.io/UX-Scale-Lab/#/umux)                |
-| Usability              | UMUX-Lite                          | 2     | 7-point Likert     | [/umux-lite](https://cfunkz.github.io/UX-Scale-Lab/#/umux-lite)      |
-| Usability              | CSUQ                               | 16    | 7-point Likert     | [/csuq](https://cfunkz.github.io/UX-Scale-Lab/#/csuq)                |
-| Usability              | PSSUQ                              | 16    | 7-point Likert     | [/pssuq](https://cfunkz.github.io/UX-Scale-Lab/#/pssuq)              |
-| Task-level             | Single Ease Question (SEQ)         | 1     | 7-point            | [/seq](https://cfunkz.github.io/UX-Scale-Lab/#/seq)                  |
-| Task-level             | After-Scenario Questionnaire (ASQ) | 3     | 7-point Likert     | [/asq](https://cfunkz.github.io/UX-Scale-Lab/#/asq)                  |
-| Comprehensive UX       | USE Questionnaire                  | 30    | 7-point Likert     | [/use](https://cfunkz.github.io/UX-Scale-Lab/#/use)                  |
-| Comprehensive UX       | Technology Acceptance Model (TAM)  | 12    | 7-point Likert     | [/tam](https://cfunkz.github.io/UX-Scale-Lab/#/tam)                  |
-| Satisfaction & Loyalty | Net Promoter Score (NPS)           | 1     | 0–10               | [/nps](https://cfunkz.github.io/UX-Scale-Lab/#/nps)                  |
-| Satisfaction           | Customer Satisfaction Score (CSAT) | 5     | 5-point Likert     | [/csat](https://cfunkz.github.io/UX-Scale-Lab/#/csat)                |
-| Generic                | Self-Reported Learnability         | 6     | 7-point Likert     | [/learnability](https://cfunkz.github.io/UX-Scale-Lab/#/learnability)|
-| Generic                | Basic UX Satisfaction Survey       | 8     | 5-point Likert     | [/basic-ux](https://cfunkz.github.io/UX-Scale-Lab/#/basic-ux)        |
+| Usability              | System Usability Scale (SUS)       | 10    | 5-point Likert     | [/sus](https://cfunkz.github.io/UX-Scale-Labs/#/sus)                  |
+| Usability              | UMUX                               | 4     | 7-point Likert     | [/umux](https://cfunkz.github.io/UX-Scale-Labs/#/umux)                |
+| Usability              | UMUX-Lite                          | 2     | 7-point Likert     | [/umux-lite](https://cfunkz.github.io/UX-Scale-Labs/#/umux-lite)      |
+| Usability              | CSUQ                               | 16    | 7-point Likert     | [/csuq](https://cfunkz.github.io/UX-Scale-Labs/#/csuq)                |
+| Usability              | PSSUQ                              | 16    | 7-point Likert     | [/pssuq](https://cfunkz.github.io/UX-Scale-Labs/#/pssuq)              |
+| Task-level             | Single Ease Question (SEQ)         | 1     | 7-point            | [/seq](https://cfunkz.github.io/UX-Scale-Labs/#/seq)                  |
+| Task-level             | After-Scenario Questionnaire (ASQ) | 3     | 7-point Likert     | [/asq](https://cfunkz.github.io/UX-Scale-Labs/#/asq)                  |
+| Comprehensive UX       | USE Questionnaire                  | 30    | 7-point Likert     | [/use](https://cfunkz.github.io/UX-Scale-Labs/#/use)                  |
+| Comprehensive UX       | Technology Acceptance Model (TAM)  | 12    | 7-point Likert     | [/tam](https://cfunkz.github.io/UX-Scale-Labs/#/tam)                  |
+| Satisfaction & Loyalty | Net Promoter Score (NPS)           | 1     | 0–10               | [/nps](https://cfunkz.github.io/UX-Scale-Labs/#/nps)                  |
+| Satisfaction           | Customer Satisfaction Score (CSAT) | 5     | 5-point Likert     | [/csat](https://cfunkz.github.io/UX-Scale-Labs/#/csat)                |
+| Generic                | Self-Reported Learnability         | 6     | 7-point Likert     | [/learnability](https://cfunkz.github.io/UX-Scale-Labs/#/learnability)|
+| Generic                | Basic UX Satisfaction Survey       | 8     | 5-point Likert     | [/basic-ux](https://cfunkz.github.io/UX-Scale-Labs/#/basic-ux)        |
 
 ## Academic References
 
