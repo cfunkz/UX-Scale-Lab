@@ -51,14 +51,18 @@
   <summary><b>Questions & Results</b></summary>
   <br/>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/cf63f12d-109f-4c20-855d-1c74accf77bb" alt="2" width="92%">
+    <img src="https://github.com/user-attachments/assets/cf63f12d-109f-4c20-855d-1c74accf77bb" alt="questions" width="92%">
   </p>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/7c4fa68c-fe66-4203-9b25-0e49041eee40" alt="1" width="92%">
+    <img src="https://github.com/user-attachments/assets/7c4fa68c-fe66-4203-9b25-0e49041eee40" alt="results1" width="92%">
   </p>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/9a197e1a-cd0c-494c-8f72-77b41cef9b2c" alt="2" width="92%">
+    <img src="https://github.com/user-attachments/assets/9a197e1a-cd0c-494c-8f72-77b41cef9b2c" alt="results2" width="92%">
   </p>
+  <p align="center">
+    <img src="https://github.com/user-attachments/assets/977386b0-2507-4786-838c-43a70288b3e3" alt="results3" width="92%">
+  </p>
+
 </details>
 
 ---
