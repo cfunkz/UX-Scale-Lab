@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://cfunkz.github.io/UX-Scale-Lab/">
+  <a href="https://uxscalelabs.online">
     <img src="https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-0366d6?style=for-the-badge&logo=github&logoColor=white" alt="Live Demo">
   </a>
 </p>
