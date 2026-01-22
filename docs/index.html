@@ -5,6 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UX Scale Lab | Research-Grade Questionnaires</title>
     
+    <meta name="description"
+        content="Research-grade UX questionnaires with validated scoring algorithms. Includes SUS, UMUX, NPS, CSUQ and more. Instant scoring and exports.">
+
+    <link rel="canonical" href="https://cfunkz.github.io/UX-Scale-Lab/">
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#1a365d">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="UX Scale Lab – UX Questionnaires & Scoring">
+    <meta property="og:description" content="Validated UX questionnaires with instant scoring and exports. Runs entirely in the browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cfunkz.github.io/UX-Scale-Lab/">
+    <meta property="og:image" content="https://cfunkz.github.io/UX-Scale-Lab/og.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UX Scale Lab – UX Questionnaires & Scoring">
+    <meta name="twitter:description" content="Validated UX questionnaires with instant scoring and exports.">
+    <meta name="twitter:image" content="https://cfunkz.github.io/UX-Scale-Lab/og.png">
+
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "UX Scale Lab",
+    "applicationCategory": "BusinessApplication",
+    "description": "Research-grade UX questionnaires with validated scoring algorithms including SUS, UMUX, NPS, CSUQ and more.",
+    "url": "https://cfunkz.github.io/UX-Scale-Lab/",
+    "browserRequirements": "Requires JavaScript"
+    }
+    </script>
+
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -37,24 +70,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body { font-family: 'Source Sans 3', system-ui, sans-serif; }
-        .font-serif { font-family: 'Libre Baskerville', Georgia, serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        .likert-radio:checked + label { background: #1a365d; color: white; border-color: #1a365d; }
-        .nps-radio:checked + label.detractor { background: #c53030; border-color: #c53030; color: white; }
-        .nps-radio:checked + label.passive { background: #d69e2e; border-color: #d69e2e; color: white; }
-        .nps-radio:checked + label.promoter { background: #2f855a; border-color: #2f855a; color: white; }
-        
-        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1); }
-        
-        .score-progress { transition: stroke-dashoffset 1s ease-out; }
-        .question-answered { border-color: #2c5282 !important; background: #f0f5ff; }
-        
-        @media print { .no-print { display: none !important; } }
-    </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
     
@@ -448,5 +463,6 @@
     </footer>
 
     <script src="app.js"></script>
+    
 </body>
 </html>
