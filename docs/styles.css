@@ -233,18 +233,11 @@ body { font-family: var(--sans); background: var(--bg); color: var(--gray-700); 
 @media (min-width: 640px) { .export-section { border-radius: 0.6rem; padding: 1.25rem; } }
 .export-section h3 { font-family: var(--serif); font-size: 1rem; color: var(--primary); margin-bottom: 0.875rem; font-weight: 400; }
 @media (min-width: 640px) { .export-section h3 { font-size: 1.1rem; margin-bottom: 1rem; } }
-.export-options { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.875rem; }
-@media (min-width: 640px) { .export-options { gap: 1.5rem; margin-bottom: 1rem; } }
-.export-options label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; cursor: pointer; }
-@media (min-width: 640px) { .export-options label { gap: 0.5rem; font-size: 0.9rem; } }
-.export-options input { width: 0.9rem; height: 0.9rem; }
-@media (min-width: 640px) { .export-options input { width: 1rem; height: 1rem; } }
-.export-btns { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.export-btns { display: flex; gap: 0.4rem; }
 @media (min-width: 640px) { .export-btns { gap: 0.5rem; } }
-.export-btns .btn-primary { flex: 1; min-width: 120px; }
-@media (min-width: 640px) { .export-btns .btn-primary { min-width: 140px; } }
-.export-btns .btn-secondary { padding: 0.7rem 0.875rem; font-size: 0.9rem; }
-@media (min-width: 640px) { .export-btns .btn-secondary { padding: 0.75rem 1rem; } }
+.export-btns button { flex: 1; padding: 0.65rem 0.25rem; font-size: 0.75rem; font-family: var(--mono); font-weight: 500; border: 1px solid var(--gray-300); background: var(--white); color: var(--gray-700); border-radius: 0.4rem; cursor: pointer; }
+@media (min-width: 640px) { .export-btns button { padding: 0.75rem 0.5rem; font-size: 0.8rem; } }
+.export-btns button:hover { background: var(--primary); color: var(--white); border-color: var(--primary); }
 
 /* About */
 .about { background: var(--white); border-top: 1px solid var(--gray-200); padding: 4rem 1rem; }
