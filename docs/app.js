@@ -547,34 +547,66 @@ function displayResults() {
 // ============================================
 // EXPORT FUNCTIONS
 // ============================================
+
+
+const stamp = () => new Date().toISOString().slice(0, 10);
+const sysName = () => document.getElementById('system-name').value || 'Unnamed System';
+const baseName = () => `${currentQ.abbr}_Results_${stamp()}`;
+
+function saveBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+async function downloadPDF() {
+  saveBlob(await generatePDF(sysName()), baseName() + '.pdf');
+}
+
+function downloadCSV() {
+  const blob = new Blob([generateCSV(sysName())], { type: 'text/csv;charset=utf-8' });
+  saveBlob(blob, baseName() + '.csv');
+}
+
+function downloadTXT() {
+  const blob = new Blob([generateTXT(sysName())], { type: 'text/plain;charset=utf-8' });
+  saveBlob(blob, baseName() + '.txt');
+}
+
+async function sharePDF() {
+  if (!navigator.share) return alert('Sharing not supported on this browser.');
+  if (!currentQ || !results) return alert('Generate results first.');
+
+  const name = baseName() + '.pdf';
+  const blob = await generatePDF(sysName());
+  const file = new File([blob], name, { type: 'application/pdf' });
+
+  if (navigator.canShare && !navigator.canShare({ files: [file] })) {
+    return downloadPDF();
+  }
+
+  await navigator.share({ files: [file], title: name });
+}
+
 async function exportResults() {
-    const includePdf = document.getElementById('export-pdf').checked;
-    const includeCsv = document.getElementById('export-csv').checked;
-    const includeTxt = document.getElementById('export-txt').checked;
-    
-    if (!includePdf && !includeCsv && !includeTxt) {
-        alert('Please select at least one export format.');
-        return;
-    }
-    
-    const zip = new JSZip();
-    const timestamp = new Date().toISOString().split('T')[0];
-    const baseName = currentQ.abbr + '_Results_' + timestamp;
-    const systemName = document.getElementById('system-name').value || 'Unnamed System';
-    
-    if (includePdf) {
-        const pdfBlob = await generatePDF(systemName);
-        zip.file(baseName + '.pdf', pdfBlob);
-    }
-    if (includeCsv) zip.file(baseName + '.csv', generateCSV(systemName));
-    if (includeTxt) zip.file(baseName + '.txt', generateTXT(systemName));
-    
-    const zipBlob = await zip.generateAsync({ type: 'blob' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(zipBlob);
-    link.download = baseName + '.zip';
-    link.click();
-    URL.revokeObjectURL(link.href);
+  const pdf = document.getElementById('export-pdf').checked;
+  const csv = document.getElementById('export-csv').checked;
+  const txt = document.getElementById('export-txt').checked;
+
+  if (!pdf && !csv && !txt) return alert('Please select at least one export format.');
+
+  const zip = new JSZip();
+  const base = baseName();
+  const system = sysName();
+
+  if (pdf) zip.file(base + '.pdf', await generatePDF(system));
+  if (csv) zip.file(base + '.csv', generateCSV(system));
+  if (txt) zip.file(base + '.txt', generateTXT(system));
+
+  saveBlob(await zip.generateAsync({ type: 'blob' }), base + '.zip');
 }
 
 function generatePDF(systemName) {
