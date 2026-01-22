@@ -73,7 +73,8 @@ const QUESTIONNAIRES = {
     id: 'pssuq', abbr: 'PSSUQ', name: 'Post-Study System Usability Questionnaire',
     citation: 'Lewis, J.R. (2002)',
     scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-    labels: ['Strongly Agree', 'Strongly Disagree'],
+    // FIX: standard presentation is Disagree -> Agree (so higher is better)
+    labels: ['Strongly Disagree', 'Strongly Agree'],
     subscales: {
       sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
       infoqual: { name: 'Information Quality', items: [7,8,9,10,11,12] },
@@ -248,6 +249,7 @@ const SCORING = {
       grade: score >= 84 ? 'A' : score >= 72 ? 'B' : score >= 52 ? 'C' : score >= 38 ? 'D' : 'F'
     };
   },
+
   umux(resp, q) {
     let sum = 0;
     q.questions.forEach(item => {
@@ -261,9 +263,13 @@ const SCORING = {
       grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
     };
   },
+
   'umux-lite'(resp, q) {
     let sum = 0;
-    q.questions.forEach(item => { if (resp[item.id]) sum += resp[item.id]; });
+    q.questions.forEach(item => {
+      const val = resp[item.id];
+      if (val !== undefined) sum += val; // raw 1..7
+    });
     const score = ((sum - 2) / 12) * 100;
     return {
       overall: Math.round(score * 10) / 10,
@@ -271,44 +277,64 @@ const SCORING = {
       grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
     };
   },
+
   csat(resp, q) {
     let sum = 0, count = 0;
-    q.questions.forEach(item => { if (resp[item.id]) { sum += resp[item.id]; count++; } });
+    q.questions.forEach(item => {
+      const val = resp[item.id];
+      if (val !== undefined) { sum += val; count++; }
+    });
     const avg = sum / count;
     const score = ((avg - 1) / 4) * 100;
     return {
-      overall: Math.round(score * 10) / 10, averageScore: Math.round(avg * 100) / 100,
+      overall: Math.round(score * 10) / 10,
+      averageScore: Math.round(avg * 100) / 100,
       interpretation: score >= 80 ? 'Excellent satisfaction.' : score >= 60 ? 'Good satisfaction.' : score >= 40 ? 'Moderate satisfaction.' : 'Poor satisfaction.',
       grade: score >= 80 ? 'A' : score >= 60 ? 'B' : score >= 40 ? 'C' : 'D'
     };
   },
+
   average(resp, q) {
     let sum = 0, count = 0;
     const subscaleData = {};
     q.questions.forEach(item => {
-      if (resp[item.id]) {
-        sum += resp[item.id]; count++;
+      const val = resp[item.id];
+      if (val !== undefined) {
+        sum += val; count++;
         if (item.sub && q.subscales) {
           if (!subscaleData[item.sub]) subscaleData[item.sub] = { sum: 0, count: 0 };
-          subscaleData[item.sub].sum += resp[item.id];
+          subscaleData[item.sub].sum += val;
           subscaleData[item.sub].count++;
         }
       }
     });
-    const overall = Math.round((sum / count) * 100) / 100;
+
+    const avg = sum / count; // raw average on the questionnaire scale
+    const overall = Math.round(avg * 100) / 100;
+
+    // FIX: scale-aware interpretation/grade using normalized % of the scale range
+    const pct = ((avg - q.scaleMin) / (q.scaleMax - q.scaleMin)) * 100;
+
     const subscales = {};
     if (q.subscales) {
       Object.keys(q.subscales).forEach(key => {
         const d = subscaleData[key];
-        subscales[key] = { name: q.subscales[key].name, score: d ? Math.round((d.sum / d.count) * 100) / 100 : 0, max: q.scaleMax };
+        subscales[key] = {
+          name: q.subscales[key].name,
+          score: d ? Math.round((d.sum / d.count) * 100) / 100 : 0,
+          max: q.scaleMax
+        };
       });
     }
+
     return {
-      overall, subscales,
-      interpretation: overall >= 6 ? 'Excellent.' : overall >= 5 ? 'Good.' : overall >= 4 ? 'Moderate.' : 'Needs improvement.',
-      grade: overall >= 6 ? 'A' : overall >= 5 ? 'B' : overall >= 4 ? 'C' : overall >= 3 ? 'D' : 'F'
+      overall,
+      subscales,
+      interpretation: pct >= 80 ? 'Excellent.' : pct >= 65 ? 'Good.' : pct >= 50 ? 'Moderate.' : 'Needs improvement.',
+      grade: pct >= 80 ? 'A' : pct >= 65 ? 'B' : pct >= 50 ? 'C' : pct >= 35 ? 'D' : 'F'
     };
   },
+
   calculate(id, resp, q) {
     return this[id] ? this[id](resp, q) : this.average(resp, q);
   }
@@ -578,7 +604,19 @@ function generatePDF(systemName) {
 }
 
 function generateCSV(systemName) {
-  let lines = ['UX Scale Labs Results', 'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name, 'System,' + systemName, 'Date,' + new Date().toISOString(), '', 'SCORES', 'Overall,' + results.overall, 'Grade,' + results.grade, '', 'RESPONSES', 'Item,Question,Response,Reversed'];
+  let lines = [
+    'UX Scale Labs Results',
+    'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name,
+    'System,' + systemName,
+    'Date,' + new Date().toISOString(),
+    '',
+    'SCORES',
+    'Overall,' + results.overall,
+    'Grade,' + results.grade,
+    '',
+    'RESPONSES',
+    'Item,Question,Response,Reversed'
+  ];
   currentQ.questions.forEach(q => {
     lines.push(q.id + ',"' + q.text.replace(/"/g, '""') + '",' + responses[q.id] + ',' + (q.r ? 'Yes' : 'No'));
   });
@@ -587,7 +625,29 @@ function generateCSV(systemName) {
 
 function generateTXT(systemName) {
   const div = '='.repeat(60);
-  let lines = [div, '  UX SCALE LABS - RESULTS REPORT', div, '', 'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name, 'System: ' + systemName, 'Date: ' + new Date().toLocaleString(), '', '-'.repeat(60), '  SCORE SUMMARY', '-'.repeat(60), '', '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax), '  Grade: ' + results.grade, '', '  ' + results.interpretation, '', '-'.repeat(60), '  RESPONSES', '-'.repeat(60), ''];
+  let lines = [
+    div,
+    '  UX SCALE LABS - RESULTS REPORT',
+    div,
+    '',
+    'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name,
+    'System: ' + systemName,
+    'Date: ' + new Date().toLocaleString(),
+    '',
+    '-'.repeat(60),
+    '  SCORE SUMMARY',
+    '-'.repeat(60),
+    '',
+    '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax),
+    '  Grade: ' + results.grade,
+    '',
+    '  ' + results.interpretation,
+    '',
+    '-'.repeat(60),
+    '  RESPONSES',
+    '-'.repeat(60),
+    ''
+  ];
   currentQ.questions.forEach(q => {
     lines.push('  Q' + q.id + '. ' + q.text);
     lines.push('      Response: ' + responses[q.id] + (q.r ? ' (reversed)' : ''));
@@ -627,7 +687,7 @@ function printQuestionnaire(id) {
   });
 
   html += `<div class="print-footer">Generated by UX Scale Labs • uxscalelabs.online</div></div>`;
-  
+
   $('print-template').innerHTML = html;
   window.print();
   setTimeout(() => { $('print-template').innerHTML = ''; }, 1000);
