@@ -542,16 +542,12 @@ async function sharePDF() {
 }
 
 async function exportResults() {
-  const pdf = document.getElementById('export-pdf').checked;
-  const csv = document.getElementById('export-csv').checked;
-  const txt = document.getElementById('export-txt').checked;
-  if (!pdf && !csv && !txt) return alert('Select at least one format.');
   const zip = new JSZip();
   const base = baseName();
   const system = sysName();
-  if (pdf) zip.file(base + '.pdf', await generatePDF(system));
-  if (csv) zip.file(base + '.csv', generateCSV(system));
-  if (txt) zip.file(base + '.txt', generateTXT(system));
+  zip.file(base + '.pdf', await generatePDF(system));
+  zip.file(base + '.csv', generateCSV(system));
+  zip.file(base + '.txt', generateTXT(system));
   saveBlob(await zip.generateAsync({ type: 'blob' }), base + '.zip');
 }
 
