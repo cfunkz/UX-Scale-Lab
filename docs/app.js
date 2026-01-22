@@ -1,391 +1,379 @@
-// ============================================
-// QUESTIONNAIRE DEFINITIONS
-// ============================================
+// Questionnaire Definitions
 const QUESTIONNAIRES = {
-    'sus': {
-        id: 'sus', abbr: 'SUS', name: 'System Usability Scale',
-        citation: 'Brooke, J. (1996)',
-        scaleMin: 1, scaleMax: 5, scoreMin: 0, scoreMax: 100,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: 'I think that I would like to use this system frequently.', r: false },
-            { id: 2, text: 'I found the system unnecessarily complex.', r: true },
-            { id: 3, text: 'I thought the system was easy to use.', r: false },
-            { id: 4, text: 'I think that I would need the support of a technical person to be able to use this system.', r: true },
-            { id: 5, text: 'I found the various functions in this system were well integrated.', r: false },
-            { id: 6, text: 'I thought there was too much inconsistency in this system.', r: true },
-            { id: 7, text: 'I would imagine that most people would learn to use this system very quickly.', r: false },
-            { id: 8, text: 'I found the system very cumbersome to use.', r: true },
-            { id: 9, text: 'I felt very confident using the system.', r: false },
-            { id: 10, text: 'I needed to learn a lot of things before I could get going with this system.', r: true }
-        ]
+  'sus': {
+    id: 'sus', abbr: 'SUS', name: 'System Usability Scale',
+    citation: 'Brooke, J. (1996)',
+    scaleMin: 1, scaleMax: 5, scoreMin: 0, scoreMax: 100,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: 'I think that I would like to use this system frequently.', r: false },
+      { id: 2, text: 'I found the system unnecessarily complex.', r: true },
+      { id: 3, text: 'I thought the system was easy to use.', r: false },
+      { id: 4, text: 'I think that I would need the support of a technical person to be able to use this system.', r: true },
+      { id: 5, text: 'I found the various functions in this system were well integrated.', r: false },
+      { id: 6, text: 'I thought there was too much inconsistency in this system.', r: true },
+      { id: 7, text: 'I would imagine that most people would learn to use this system very quickly.', r: false },
+      { id: 8, text: 'I found the system very cumbersome to use.', r: true },
+      { id: 9, text: 'I felt very confident using the system.', r: false },
+      { id: 10, text: 'I needed to learn a lot of things before I could get going with this system.', r: true }
+    ]
+  },
+  'umux': {
+    id: 'umux', abbr: 'UMUX', name: 'Usability Metric for User Experience',
+    citation: 'Finstad, K. (2010)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 0, scoreMax: 100,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: "This system's capabilities meet my requirements.", r: false },
+      { id: 2, text: 'Using this system is a frustrating experience.', r: true },
+      { id: 3, text: 'This system is easy to use.', r: false },
+      { id: 4, text: 'I have to spend too much time correcting things with this system.', r: true }
+    ]
+  },
+  'umux-lite': {
+    id: 'umux-lite', abbr: 'UMUX-L', name: 'UMUX-Lite',
+    citation: 'Lewis, J.R. et al. (2013)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 0, scoreMax: 100,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: "This system's capabilities meet my requirements.", r: false },
+      { id: 2, text: 'This system is easy to use.', r: false }
+    ]
+  },
+  'csuq': {
+    id: 'csuq', abbr: 'CSUQ', name: 'Computer System Usability Questionnaire',
+    citation: 'Lewis, J.R. (1995)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    subscales: {
+      sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
+      infoqual: { name: 'Information Quality', items: [7,8,9,10,11,12] },
+      intqual: { name: 'Interface Quality', items: [13,14,15,16] }
     },
-    'umux': {
-        id: 'umux', abbr: 'UMUX', name: 'Usability Metric for User Experience',
-        citation: 'Finstad, K. (2010)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 0, scoreMax: 100,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: "This system's capabilities meet my requirements.", r: false },
-            { id: 2, text: 'Using this system is a frustrating experience.', r: true },
-            { id: 3, text: 'This system is easy to use.', r: false },
-            { id: 4, text: 'I have to spend too much time correcting things with this system.', r: true }
-        ]
+    questions: [
+      { id: 1, text: 'Overall, I am satisfied with how easy it is to use this system.', r: false, sub: 'sysuse' },
+      { id: 2, text: 'It was simple to use this system.', r: false, sub: 'sysuse' },
+      { id: 3, text: 'I could effectively complete my work using this system.', r: false, sub: 'sysuse' },
+      { id: 4, text: 'I was able to complete my work quickly using this system.', r: false, sub: 'sysuse' },
+      { id: 5, text: 'I was able to efficiently complete my work using this system.', r: false, sub: 'sysuse' },
+      { id: 6, text: 'I felt comfortable using this system.', r: false, sub: 'sysuse' },
+      { id: 7, text: 'It was easy to learn to use this system.', r: false, sub: 'infoqual' },
+      { id: 8, text: 'I believe I could become productive quickly using this system.', r: false, sub: 'infoqual' },
+      { id: 9, text: 'The system gave error messages that clearly told me how to fix problems.', r: false, sub: 'infoqual' },
+      { id: 10, text: 'Whenever I made a mistake using the system, I could recover easily and quickly.', r: false, sub: 'infoqual' },
+      { id: 11, text: 'The information provided with this system was clear.', r: false, sub: 'infoqual' },
+      { id: 12, text: 'It was easy to find the information I needed.', r: false, sub: 'infoqual' },
+      { id: 13, text: 'The information was effective in helping me complete my work.', r: false, sub: 'intqual' },
+      { id: 14, text: 'The organization of information on the system screens was clear.', r: false, sub: 'intqual' },
+      { id: 15, text: 'The interface of this system was pleasant.', r: false, sub: 'intqual' },
+      { id: 16, text: 'I liked using the interface of this system.', r: false, sub: 'intqual' }
+    ]
+  },
+  'pssuq': {
+    id: 'pssuq', abbr: 'PSSUQ', name: 'Post-Study System Usability Questionnaire',
+    citation: 'Lewis, J.R. (2002)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Agree', 'Strongly Disagree'],
+    subscales: {
+      sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
+      infoqual: { name: 'Information Quality', items: [7,8,9,10,11,12] },
+      intqual: { name: 'Interface Quality', items: [13,14,15,16] }
     },
-    'umux-lite': {
-        id: 'umux-lite', abbr: 'UMUX-L', name: 'UMUX-Lite',
-        citation: 'Lewis, J.R. et al. (2013)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 0, scoreMax: 100,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: "This system's capabilities meet my requirements.", r: false },
-            { id: 2, text: 'This system is easy to use.', r: false }
-        ]
+    questions: [
+      { id: 1, text: 'Overall, I am satisfied with how easy it is to use this system.', r: false, sub: 'sysuse' },
+      { id: 2, text: 'It was simple to use this system.', r: false, sub: 'sysuse' },
+      { id: 3, text: 'I was able to complete the tasks and scenarios quickly using this system.', r: false, sub: 'sysuse' },
+      { id: 4, text: 'I felt comfortable using this system.', r: false, sub: 'sysuse' },
+      { id: 5, text: 'It was easy to learn to use this system.', r: false, sub: 'sysuse' },
+      { id: 6, text: 'I believe I could become productive quickly using this system.', r: false, sub: 'sysuse' },
+      { id: 7, text: 'The system gave error messages that clearly told me how to fix problems.', r: false, sub: 'infoqual' },
+      { id: 8, text: 'Whenever I made a mistake using the system, I could recover easily and quickly.', r: false, sub: 'infoqual' },
+      { id: 9, text: 'The information provided with this system was clear.', r: false, sub: 'infoqual' },
+      { id: 10, text: 'It was easy to find the information I needed.', r: false, sub: 'infoqual' },
+      { id: 11, text: 'The information provided for the system was easy to understand.', r: false, sub: 'infoqual' },
+      { id: 12, text: 'The information was effective in helping me complete the tasks.', r: false, sub: 'infoqual' },
+      { id: 13, text: 'The organization of information on the system screens was clear.', r: false, sub: 'intqual' },
+      { id: 14, text: 'The interface of this system was pleasant.', r: false, sub: 'intqual' },
+      { id: 15, text: 'I liked using the interface of this system.', r: false, sub: 'intqual' },
+      { id: 16, text: 'Overall, I am satisfied with this system.', r: false, sub: 'intqual' }
+    ]
+  },
+  'seq': {
+    id: 'seq', abbr: 'SEQ', name: 'Single Ease Question',
+    citation: 'Sauro, J. & Dumas, J.S. (2009)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Very Difficult', 'Very Easy'],
+    questions: [
+      { id: 1, text: 'Overall, how difficult or easy was the task to complete?', r: false }
+    ]
+  },
+  'asq': {
+    id: 'asq', abbr: 'ASQ', name: 'After-Scenario Questionnaire',
+    citation: 'Lewis, J.R. (1991)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: 'Overall, I am satisfied with the ease of completing this task.', r: false },
+      { id: 2, text: 'Overall, I am satisfied with the amount of time it took to complete this task.', r: false },
+      { id: 3, text: 'Overall, I am satisfied with the support information when completing this task.', r: false }
+    ]
+  },
+  'use': {
+    id: 'use', abbr: 'USE', name: 'USE Questionnaire',
+    citation: 'Lund, A.M. (2001)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    subscales: {
+      usefulness: { name: 'Usefulness', items: [1,2,3,4,5,6,7,8] },
+      easeofuse: { name: 'Ease of Use', items: [9,10,11,12,13,14,15,16,17,18,19] },
+      easeoflearning: { name: 'Ease of Learning', items: [20,21,22,23] },
+      satisfaction: { name: 'Satisfaction', items: [24,25,26,27,28,29,30] }
     },
-    'csuq': {
-        id: 'csuq', abbr: 'CSUQ', name: 'Computer System Usability Questionnaire',
-        citation: 'Lewis, J.R. (1995)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        subscales: {
-            sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
-            infoqual: { name: 'Information Quality', items: [7,8,9,10,11,12] },
-            intqual: { name: 'Interface Quality', items: [13,14,15,16] }
-        },
-        questions: [
-            { id: 1, text: 'Overall, I am satisfied with how easy it is to use this system.', r: false, sub: 'sysuse' },
-            { id: 2, text: 'It was simple to use this system.', r: false, sub: 'sysuse' },
-            { id: 3, text: 'I could effectively complete my work using this system.', r: false, sub: 'sysuse' },
-            { id: 4, text: 'I was able to complete my work quickly using this system.', r: false, sub: 'sysuse' },
-            { id: 5, text: 'I was able to efficiently complete my work using this system.', r: false, sub: 'sysuse' },
-            { id: 6, text: 'I felt comfortable using this system.', r: false, sub: 'sysuse' },
-            { id: 7, text: 'It was easy to learn to use this system.', r: false, sub: 'infoqual' },
-            { id: 8, text: 'I believe I could become productive quickly using this system.', r: false, sub: 'infoqual' },
-            { id: 9, text: 'The system gave error messages that clearly told me how to fix problems.', r: false, sub: 'infoqual' },
-            { id: 10, text: 'Whenever I made a mistake using the system, I could recover easily and quickly.', r: false, sub: 'infoqual' },
-            { id: 11, text: 'The information provided with this system was clear.', r: false, sub: 'infoqual' },
-            { id: 12, text: 'It was easy to find the information I needed.', r: false, sub: 'infoqual' },
-            { id: 13, text: 'The information was effective in helping me complete my work.', r: false, sub: 'intqual' },
-            { id: 14, text: 'The organization of information on the system screens was clear.', r: false, sub: 'intqual' },
-            { id: 15, text: 'The interface of this system was pleasant.', r: false, sub: 'intqual' },
-            { id: 16, text: 'I liked using the interface of this system.', r: false, sub: 'intqual' }
-        ]
+    questions: [
+      { id: 1, text: 'It helps me be more effective.', r: false, sub: 'usefulness' },
+      { id: 2, text: 'It helps me be more productive.', r: false, sub: 'usefulness' },
+      { id: 3, text: 'It is useful.', r: false, sub: 'usefulness' },
+      { id: 4, text: 'It gives me more control over the activities in my life.', r: false, sub: 'usefulness' },
+      { id: 5, text: 'It makes the things I want to accomplish easier to get done.', r: false, sub: 'usefulness' },
+      { id: 6, text: 'It saves me time when I use it.', r: false, sub: 'usefulness' },
+      { id: 7, text: 'It meets my needs.', r: false, sub: 'usefulness' },
+      { id: 8, text: 'It does everything I would expect it to do.', r: false, sub: 'usefulness' },
+      { id: 9, text: 'It is easy to use.', r: false, sub: 'easeofuse' },
+      { id: 10, text: 'It is simple to use.', r: false, sub: 'easeofuse' },
+      { id: 11, text: 'It is user friendly.', r: false, sub: 'easeofuse' },
+      { id: 12, text: 'It requires the fewest steps possible to accomplish what I want to do.', r: false, sub: 'easeofuse' },
+      { id: 13, text: 'It is flexible.', r: false, sub: 'easeofuse' },
+      { id: 14, text: 'Using it is effortless.', r: false, sub: 'easeofuse' },
+      { id: 15, text: 'I can use it without written instructions.', r: false, sub: 'easeofuse' },
+      { id: 16, text: "I don't notice any inconsistencies as I use it.", r: false, sub: 'easeofuse' },
+      { id: 17, text: 'Both occasional and regular users would like it.', r: false, sub: 'easeofuse' },
+      { id: 18, text: 'I can recover from mistakes quickly and easily.', r: false, sub: 'easeofuse' },
+      { id: 19, text: 'I can use it successfully every time.', r: false, sub: 'easeofuse' },
+      { id: 20, text: 'I learned to use it quickly.', r: false, sub: 'easeoflearning' },
+      { id: 21, text: 'I easily remember how to use it.', r: false, sub: 'easeoflearning' },
+      { id: 22, text: 'It is easy to learn to use it.', r: false, sub: 'easeoflearning' },
+      { id: 23, text: 'I quickly became skillful with it.', r: false, sub: 'easeoflearning' },
+      { id: 24, text: 'I am satisfied with it.', r: false, sub: 'satisfaction' },
+      { id: 25, text: 'I would recommend it to a friend.', r: false, sub: 'satisfaction' },
+      { id: 26, text: 'It is fun to use.', r: false, sub: 'satisfaction' },
+      { id: 27, text: 'It works the way I want it to work.', r: false, sub: 'satisfaction' },
+      { id: 28, text: 'It is wonderful.', r: false, sub: 'satisfaction' },
+      { id: 29, text: 'I feel I need to have it.', r: false, sub: 'satisfaction' },
+      { id: 30, text: 'It is pleasant to use.', r: false, sub: 'satisfaction' }
+    ]
+  },
+  'tam': {
+    id: 'tam', abbr: 'TAM', name: 'Technology Acceptance Model',
+    citation: 'Davis, F.D. (1989)',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    subscales: {
+      pu: { name: 'Perceived Usefulness', items: [1,2,3,4,5,6] },
+      peou: { name: 'Perceived Ease of Use', items: [7,8,9,10,11,12] }
     },
-    'pssuq': {
-        id: 'pssuq', abbr: 'PSSUQ', name: 'Post-Study System Usability Questionnaire',
-        citation: 'Lewis, J.R. (2002)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Agree', 'Strongly Disagree'],
-        subscales: {
-            sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
-            infoqual: { name: 'Information Quality', items: [7,8,9,10,11,12] },
-            intqual: { name: 'Interface Quality', items: [13,14,15,16] }
-        },
-        questions: [
-            { id: 1, text: 'Overall, I am satisfied with how easy it is to use this system.', r: false, sub: 'sysuse' },
-            { id: 2, text: 'It was simple to use this system.', r: false, sub: 'sysuse' },
-            { id: 3, text: 'I was able to complete the tasks and scenarios quickly using this system.', r: false, sub: 'sysuse' },
-            { id: 4, text: 'I felt comfortable using this system.', r: false, sub: 'sysuse' },
-            { id: 5, text: 'It was easy to learn to use this system.', r: false, sub: 'sysuse' },
-            { id: 6, text: 'I believe I could become productive quickly using this system.', r: false, sub: 'sysuse' },
-            { id: 7, text: 'The system gave error messages that clearly told me how to fix problems.', r: false, sub: 'infoqual' },
-            { id: 8, text: 'Whenever I made a mistake using the system, I could recover easily and quickly.', r: false, sub: 'infoqual' },
-            { id: 9, text: 'The information provided with this system was clear.', r: false, sub: 'infoqual' },
-            { id: 10, text: 'It was easy to find the information I needed.', r: false, sub: 'infoqual' },
-            { id: 11, text: 'The information provided for the system was easy to understand.', r: false, sub: 'infoqual' },
-            { id: 12, text: 'The information was effective in helping me complete the tasks.', r: false, sub: 'infoqual' },
-            { id: 13, text: 'The organization of information on the system screens was clear.', r: false, sub: 'intqual' },
-            { id: 14, text: 'The interface of this system was pleasant.', r: false, sub: 'intqual' },
-            { id: 15, text: 'I liked using the interface of this system.', r: false, sub: 'intqual' },
-            { id: 16, text: 'Overall, I am satisfied with this system.', r: false, sub: 'intqual' }
-        ]
-    },
-    'seq': {
-        id: 'seq', abbr: 'SEQ', name: 'Single Ease Question',
-        citation: 'Sauro, J. & Dumas, J.S. (2009)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Very Difficult', 'Very Easy'],
-        questions: [
-            { id: 1, text: 'Overall, how difficult or easy was the task to complete?', r: false }
-        ]
-    },
-    'asq': {
-        id: 'asq', abbr: 'ASQ', name: 'After-Scenario Questionnaire',
-        citation: 'Lewis, J.R. (1991)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: 'Overall, I am satisfied with the ease of completing this task.', r: false },
-            { id: 2, text: 'Overall, I am satisfied with the amount of time it took to complete this task.', r: false },
-            { id: 3, text: 'Overall, I am satisfied with the support information when completing this task.', r: false }
-        ]
-    },
-    'use': {
-        id: 'use', abbr: 'USE', name: 'USE Questionnaire',
-        citation: 'Lund, A.M. (2001)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        subscales: {
-            usefulness: { name: 'Usefulness', items: [1,2,3,4,5,6,7,8] },
-            easeofuse: { name: 'Ease of Use', items: [9,10,11,12,13,14,15,16,17,18,19] },
-            easeoflearning: { name: 'Ease of Learning', items: [20,21,22,23] },
-            satisfaction: { name: 'Satisfaction', items: [24,25,26,27,28,29,30] }
-        },
-        questions: [
-            { id: 1, text: 'It helps me be more effective.', r: false, sub: 'usefulness' },
-            { id: 2, text: 'It helps me be more productive.', r: false, sub: 'usefulness' },
-            { id: 3, text: 'It is useful.', r: false, sub: 'usefulness' },
-            { id: 4, text: 'It gives me more control over the activities in my life.', r: false, sub: 'usefulness' },
-            { id: 5, text: 'It makes the things I want to accomplish easier to get done.', r: false, sub: 'usefulness' },
-            { id: 6, text: 'It saves me time when I use it.', r: false, sub: 'usefulness' },
-            { id: 7, text: 'It meets my needs.', r: false, sub: 'usefulness' },
-            { id: 8, text: 'It does everything I would expect it to do.', r: false, sub: 'usefulness' },
-            { id: 9, text: 'It is easy to use.', r: false, sub: 'easeofuse' },
-            { id: 10, text: 'It is simple to use.', r: false, sub: 'easeofuse' },
-            { id: 11, text: 'It is user friendly.', r: false, sub: 'easeofuse' },
-            { id: 12, text: 'It requires the fewest steps possible to accomplish what I want to do.', r: false, sub: 'easeofuse' },
-            { id: 13, text: 'It is flexible.', r: false, sub: 'easeofuse' },
-            { id: 14, text: 'Using it is effortless.', r: false, sub: 'easeofuse' },
-            { id: 15, text: 'I can use it without written instructions.', r: false, sub: 'easeofuse' },
-            { id: 16, text: "I don't notice any inconsistencies as I use it.", r: false, sub: 'easeofuse' },
-            { id: 17, text: 'Both occasional and regular users would like it.', r: false, sub: 'easeofuse' },
-            { id: 18, text: 'I can recover from mistakes quickly and easily.', r: false, sub: 'easeofuse' },
-            { id: 19, text: 'I can use it successfully every time.', r: false, sub: 'easeofuse' },
-            { id: 20, text: 'I learned to use it quickly.', r: false, sub: 'easeoflearning' },
-            { id: 21, text: 'I easily remember how to use it.', r: false, sub: 'easeoflearning' },
-            { id: 22, text: 'It is easy to learn to use it.', r: false, sub: 'easeoflearning' },
-            { id: 23, text: 'I quickly became skillful with it.', r: false, sub: 'easeoflearning' },
-            { id: 24, text: 'I am satisfied with it.', r: false, sub: 'satisfaction' },
-            { id: 25, text: 'I would recommend it to a friend.', r: false, sub: 'satisfaction' },
-            { id: 26, text: 'It is fun to use.', r: false, sub: 'satisfaction' },
-            { id: 27, text: 'It works the way I want it to work.', r: false, sub: 'satisfaction' },
-            { id: 28, text: 'It is wonderful.', r: false, sub: 'satisfaction' },
-            { id: 29, text: 'I feel I need to have it.', r: false, sub: 'satisfaction' },
-            { id: 30, text: 'It is pleasant to use.', r: false, sub: 'satisfaction' }
-        ]
-    },
-    'tam': {
-        id: 'tam', abbr: 'TAM', name: 'Technology Acceptance Model',
-        citation: 'Davis, F.D. (1989)',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        subscales: {
-            pu: { name: 'Perceived Usefulness', items: [1,2,3,4,5,6] },
-            peou: { name: 'Perceived Ease of Use', items: [7,8,9,10,11,12] }
-        },
-        questions: [
-            { id: 1, text: 'Using this system would enable me to accomplish tasks more quickly.', r: false, sub: 'pu' },
-            { id: 2, text: 'Using this system would improve my job performance.', r: false, sub: 'pu' },
-            { id: 3, text: 'Using this system would increase my productivity.', r: false, sub: 'pu' },
-            { id: 4, text: 'Using this system would enhance my effectiveness.', r: false, sub: 'pu' },
-            { id: 5, text: 'Using this system would make it easier to do my job.', r: false, sub: 'pu' },
-            { id: 6, text: 'I would find this system useful.', r: false, sub: 'pu' },
-            { id: 7, text: 'Learning to operate this system would be easy for me.', r: false, sub: 'peou' },
-            { id: 8, text: 'I would find it easy to get this system to do what I want.', r: false, sub: 'peou' },
-            { id: 9, text: 'My interaction with this system would be clear and understandable.', r: false, sub: 'peou' },
-            { id: 10, text: 'I would find this system to be flexible to interact with.', r: false, sub: 'peou' },
-            { id: 11, text: 'It would be easy for me to become skillful at using this system.', r: false, sub: 'peou' },
-            { id: 12, text: 'I would find this system easy to use.', r: false, sub: 'peou' }
-        ]
-    },
-    'nps': {
-        id: 'nps', abbr: 'NPS', name: 'Net Promoter Score',
-        citation: 'Reichheld, F.F. (2003)',
-        scaleMin: 0, scaleMax: 10, scoreMin: -100, scoreMax: 100,
-        labels: ['Not at all likely', 'Extremely likely'],
-        isNPS: true,
-        questions: [
-            { id: 1, text: 'How likely are you to recommend this product/service to a friend or colleague?', r: false }
-        ]
-    },
-    'csat': {
-        id: 'csat', abbr: 'CSAT', name: 'Customer Satisfaction Score',
-        citation: 'Industry Standard',
-        scaleMin: 1, scaleMax: 5, scoreMin: 0, scoreMax: 100,
-        labels: ['Very Dissatisfied', 'Very Satisfied'],
-        questions: [
-            { id: 1, text: 'Overall, how satisfied are you with this product/service?', r: false },
-            { id: 2, text: 'How well did this product/service meet your expectations?', r: false },
-            { id: 3, text: 'How would you rate the quality of this product/service?', r: false },
-            { id: 4, text: 'How satisfied are you with the value for money?', r: false },
-            { id: 5, text: 'How likely are you to continue using this product/service?', r: false }
-        ]
-    },
-    'learnability': {
-        id: 'learnability', abbr: 'SRL', name: 'Self-Reported Learnability',
-        citation: 'Generic Assessment',
-        scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: 'I found it easy to learn how to use this system.', r: false },
-            { id: 2, text: 'I was able to explore features without fear of making mistakes.', r: false },
-            { id: 3, text: "The system's interface helped me understand its functionality.", r: false },
-            { id: 4, text: 'I felt confident in my ability to learn the system quickly.', r: false },
-            { id: 5, text: 'The learning curve for this system was manageable.', r: false },
-            { id: 6, text: 'I could accomplish tasks after minimal instruction or exploration.', r: false }
-        ]
-    },
-    'basic-ux': {
-        id: 'basic-ux', abbr: 'BUX', name: 'Basic UX Satisfaction Survey',
-        citation: 'Generic Assessment',
-        scaleMin: 1, scaleMax: 5, scoreMin: 1, scoreMax: 5,
-        labels: ['Strongly Disagree', 'Strongly Agree'],
-        questions: [
-            { id: 1, text: 'The system was easy to navigate.', r: false },
-            { id: 2, text: 'I found the visual design appealing.', r: false },
-            { id: 3, text: 'The system responded quickly to my inputs.', r: false },
-            { id: 4, text: 'I could find what I was looking for easily.', r: false },
-            { id: 5, text: 'The system behaved as I expected.', r: false },
-            { id: 6, text: 'I felt in control when using the system.', r: false },
-            { id: 7, text: 'I would use this system again.', r: false },
-            { id: 8, text: 'Overall, I am satisfied with this system.', r: false }
-        ]
-    }
+    questions: [
+      { id: 1, text: 'Using this system would enable me to accomplish tasks more quickly.', r: false, sub: 'pu' },
+      { id: 2, text: 'Using this system would improve my job performance.', r: false, sub: 'pu' },
+      { id: 3, text: 'Using this system would increase my productivity.', r: false, sub: 'pu' },
+      { id: 4, text: 'Using this system would enhance my effectiveness.', r: false, sub: 'pu' },
+      { id: 5, text: 'Using this system would make it easier to do my job.', r: false, sub: 'pu' },
+      { id: 6, text: 'I would find this system useful.', r: false, sub: 'pu' },
+      { id: 7, text: 'Learning to operate this system would be easy for me.', r: false, sub: 'peou' },
+      { id: 8, text: 'I would find it easy to get this system to do what I want.', r: false, sub: 'peou' },
+      { id: 9, text: 'My interaction with this system would be clear and understandable.', r: false, sub: 'peou' },
+      { id: 10, text: 'I would find this system to be flexible to interact with.', r: false, sub: 'peou' },
+      { id: 11, text: 'It would be easy for me to become skillful at using this system.', r: false, sub: 'peou' },
+      { id: 12, text: 'I would find this system easy to use.', r: false, sub: 'peou' }
+    ]
+  },
+  'nps': {
+    id: 'nps', abbr: 'NPS', name: 'Net Promoter Score',
+    citation: 'Reichheld, F.F. (2003)',
+    scaleMin: 0, scaleMax: 10, scoreMin: -100, scoreMax: 100,
+    labels: ['Not at all likely', 'Extremely likely'],
+    isNPS: true,
+    questions: [
+      { id: 1, text: 'How likely are you to recommend this product/service to a friend or colleague?', r: false }
+    ]
+  },
+  'csat': {
+    id: 'csat', abbr: 'CSAT', name: 'Customer Satisfaction Score',
+    citation: 'Industry Standard',
+    scaleMin: 1, scaleMax: 5, scoreMin: 0, scoreMax: 100,
+    labels: ['Very Dissatisfied', 'Very Satisfied'],
+    questions: [
+      { id: 1, text: 'Overall, how satisfied are you with this product/service?', r: false },
+      { id: 2, text: 'How well did this product/service meet your expectations?', r: false },
+      { id: 3, text: 'How would you rate the quality of this product/service?', r: false },
+      { id: 4, text: 'How satisfied are you with the value for money?', r: false },
+      { id: 5, text: 'How likely are you to continue using this product/service?', r: false }
+    ]
+  },
+  'learnability': {
+    id: 'learnability', abbr: 'SRL', name: 'Self-Reported Learnability',
+    citation: 'Generic Assessment',
+    scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: 'I found it easy to learn how to use this system.', r: false },
+      { id: 2, text: 'I was able to explore features without fear of making mistakes.', r: false },
+      { id: 3, text: "The system's interface helped me understand its functionality.", r: false },
+      { id: 4, text: 'I felt confident in my ability to learn the system quickly.', r: false },
+      { id: 5, text: 'The learning curve for this system was manageable.', r: false },
+      { id: 6, text: 'I could accomplish tasks after minimal instruction or exploration.', r: false }
+    ]
+  },
+  'basic-ux': {
+    id: 'basic-ux', abbr: 'BUX', name: 'Basic UX Satisfaction Survey',
+    citation: 'Generic Assessment',
+    scaleMin: 1, scaleMax: 5, scoreMin: 1, scoreMax: 5,
+    labels: ['Strongly Disagree', 'Strongly Agree'],
+    questions: [
+      { id: 1, text: 'The system was easy to navigate.', r: false },
+      { id: 2, text: 'I found the visual design appealing.', r: false },
+      { id: 3, text: 'The system responded quickly to my inputs.', r: false },
+      { id: 4, text: 'I could find what I was looking for easily.', r: false },
+      { id: 5, text: 'The system behaved as I expected.', r: false },
+      { id: 6, text: 'I felt in control when using the system.', r: false },
+      { id: 7, text: 'I would use this system again.', r: false },
+      { id: 8, text: 'Overall, I am satisfied with this system.', r: false }
+    ]
+  }
 };
 
-// ============================================
-// SCORING ALGORITHMS
-// ============================================
+// Scoring Algorithms
 const SCORING = {
-    sus(resp, q) {
-        let sum = 0;
-        q.questions.forEach(item => {
-            const val = resp[item.id];
-            if (val !== undefined) {
-                sum += item.r ? (5 - val) : (val - 1);
-            }
-        });
-        const score = sum * 2.5;
-        return {
-            overall: Math.round(score * 10) / 10,
-            interpretation: score >= 85 ? 'Excellent usability. Users find the system exceptionally easy to use.' :
-                           score >= 72 ? 'Good usability. The system is above average.' :
-                           score >= 52 ? 'Acceptable usability with room for improvement.' : 'Poor usability. Significant redesign needed.',
-            grade: score >= 84 ? 'A' : score >= 72 ? 'B' : score >= 52 ? 'C' : score >= 38 ? 'D' : 'F'
-        };
-    },
-    umux(resp, q) {
-        let sum = 0;
-        q.questions.forEach(item => {
-            const val = resp[item.id];
-            if (val !== undefined) {
-                sum += item.r ? (7 - val) : (val - 1);
-            }
-        });
-        const score = (sum / 24) * 100;
-        return {
-            overall: Math.round(score * 10) / 10,
-            interpretation: score >= 80 ? 'Excellent usability.' : score >= 68 ? 'Good usability.' : score >= 50 ? 'Acceptable.' : 'Poor usability.',
-            grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
-        };
-    },
-    'umux-lite'(resp, q) {
-        let sum = 0;
-        q.questions.forEach(item => { if (resp[item.id]) sum += resp[item.id]; });
-        const score = ((sum - 2) / 12) * 100;
-        return {
-            overall: Math.round(score * 10) / 10,
-            interpretation: score >= 80 ? 'Excellent usability.' : score >= 68 ? 'Good usability.' : score >= 50 ? 'Acceptable.' : 'Poor usability.',
-            grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
-        };
-    },
-    nps(resp) {
-        const val = resp[1];
-        const category = val >= 9 ? 'Promoter' : val >= 7 ? 'Passive' : 'Detractor';
-        const score = val >= 9 ? 100 : val >= 7 ? 0 : -100;
-        return {
-            overall: score, rawScore: val, category,
-            interpretation: val >= 9 ? 'Promoter: Loyal enthusiast who will recommend.' : val >= 7 ? 'Passive: Satisfied but vulnerable to competitors.' : 'Detractor: Unhappy, may damage brand.',
-            grade: category
-        };
-    },
-    csat(resp, q) {
-        let sum = 0, count = 0;
-        q.questions.forEach(item => { if (resp[item.id]) { sum += resp[item.id]; count++; } });
-        const avg = sum / count;
-        const score = ((avg - 1) / 4) * 100;
-        return {
-            overall: Math.round(score * 10) / 10, averageScore: Math.round(avg * 100) / 100,
-            interpretation: score >= 80 ? 'Excellent satisfaction.' : score >= 60 ? 'Good satisfaction.' : score >= 40 ? 'Moderate satisfaction.' : 'Poor satisfaction.',
-            grade: score >= 80 ? 'A' : score >= 60 ? 'B' : score >= 40 ? 'C' : 'D'
-        };
-    },
-    average(resp, q) {
-        let sum = 0, count = 0;
-        const subscaleData = {};
-        q.questions.forEach(item => {
-            if (resp[item.id]) {
-                sum += resp[item.id]; count++;
-                if (item.sub && q.subscales) {
-                    if (!subscaleData[item.sub]) subscaleData[item.sub] = { sum: 0, count: 0 };
-                    subscaleData[item.sub].sum += resp[item.id];
-                    subscaleData[item.sub].count++;
-                }
-            }
-        });
-        const overall = Math.round((sum / count) * 100) / 100;
-        const subscales = {};
-        if (q.subscales) {
-            Object.keys(q.subscales).forEach(key => {
-                const d = subscaleData[key];
-                subscales[key] = { name: q.subscales[key].name, score: d ? Math.round((d.sum / d.count) * 100) / 100 : 0, max: q.scaleMax };
-            });
+  sus(resp, q) {
+    let sum = 0;
+    q.questions.forEach(item => {
+      const val = resp[item.id];
+      if (val !== undefined) sum += item.r ? (5 - val) : (val - 1);
+    });
+    const score = sum * 2.5;
+    return {
+      overall: Math.round(score * 10) / 10,
+      interpretation: score >= 85 ? 'Excellent usability. Users find the system exceptionally easy to use.' :
+                     score >= 72 ? 'Good usability. The system is above average.' :
+                     score >= 52 ? 'Acceptable usability with room for improvement.' : 'Poor usability. Significant redesign needed.',
+      grade: score >= 84 ? 'A' : score >= 72 ? 'B' : score >= 52 ? 'C' : score >= 38 ? 'D' : 'F'
+    };
+  },
+  umux(resp, q) {
+    let sum = 0;
+    q.questions.forEach(item => {
+      const val = resp[item.id];
+      if (val !== undefined) sum += item.r ? (7 - val) : (val - 1);
+    });
+    const score = (sum / 24) * 100;
+    return {
+      overall: Math.round(score * 10) / 10,
+      interpretation: score >= 80 ? 'Excellent usability.' : score >= 68 ? 'Good usability.' : score >= 50 ? 'Acceptable.' : 'Poor usability.',
+      grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
+    };
+  },
+  'umux-lite'(resp, q) {
+    let sum = 0;
+    q.questions.forEach(item => { if (resp[item.id]) sum += resp[item.id]; });
+    const score = ((sum - 2) / 12) * 100;
+    return {
+      overall: Math.round(score * 10) / 10,
+      interpretation: score >= 80 ? 'Excellent usability.' : score >= 68 ? 'Good usability.' : score >= 50 ? 'Acceptable.' : 'Poor usability.',
+      grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
+    };
+  },
+  nps(resp) {
+    const val = resp[1];
+    const category = val >= 9 ? 'Promoter' : val >= 7 ? 'Passive' : 'Detractor';
+    const score = val >= 9 ? 100 : val >= 7 ? 0 : -100;
+    return {
+      overall: score, rawScore: val, category,
+      interpretation: val >= 9 ? 'Promoter: Loyal enthusiast who will recommend.' : val >= 7 ? 'Passive: Satisfied but vulnerable to competitors.' : 'Detractor: Unhappy, may damage brand.',
+      grade: category
+    };
+  },
+  csat(resp, q) {
+    let sum = 0, count = 0;
+    q.questions.forEach(item => { if (resp[item.id]) { sum += resp[item.id]; count++; } });
+    const avg = sum / count;
+    const score = ((avg - 1) / 4) * 100;
+    return {
+      overall: Math.round(score * 10) / 10, averageScore: Math.round(avg * 100) / 100,
+      interpretation: score >= 80 ? 'Excellent satisfaction.' : score >= 60 ? 'Good satisfaction.' : score >= 40 ? 'Moderate satisfaction.' : 'Poor satisfaction.',
+      grade: score >= 80 ? 'A' : score >= 60 ? 'B' : score >= 40 ? 'C' : 'D'
+    };
+  },
+  average(resp, q) {
+    let sum = 0, count = 0;
+    const subscaleData = {};
+    q.questions.forEach(item => {
+      if (resp[item.id]) {
+        sum += resp[item.id]; count++;
+        if (item.sub && q.subscales) {
+          if (!subscaleData[item.sub]) subscaleData[item.sub] = { sum: 0, count: 0 };
+          subscaleData[item.sub].sum += resp[item.id];
+          subscaleData[item.sub].count++;
         }
-        return {
-            overall, subscales,
-            interpretation: overall >= 6 ? 'Excellent.' : overall >= 5 ? 'Good.' : overall >= 4 ? 'Moderate.' : 'Needs improvement.',
-            grade: overall >= 6 ? 'A' : overall >= 5 ? 'B' : overall >= 4 ? 'C' : overall >= 3 ? 'D' : 'F'
-        };
-    },
-    calculate(id, resp, q) {
-        if (this[id]) return this[id](resp, q);
-        return this.average(resp, q);
+      }
+    });
+    const overall = Math.round((sum / count) * 100) / 100;
+    const subscales = {};
+    if (q.subscales) {
+      Object.keys(q.subscales).forEach(key => {
+        const d = subscaleData[key];
+        subscales[key] = { name: q.subscales[key].name, score: d ? Math.round((d.sum / d.count) * 100) / 100 : 0, max: q.scaleMax };
+      });
     }
+    return {
+      overall, subscales,
+      interpretation: overall >= 6 ? 'Excellent.' : overall >= 5 ? 'Good.' : overall >= 4 ? 'Moderate.' : 'Needs improvement.',
+      grade: overall >= 6 ? 'A' : overall >= 5 ? 'B' : overall >= 4 ? 'C' : overall >= 3 ? 'D' : 'F'
+    };
+  },
+  calculate(id, resp, q) {
+    return this[id] ? this[id](resp, q) : this.average(resp, q);
+  }
 };
 
-// ============================================
-// APPLICATION STATE & UI
-// ============================================
+// State
 let currentQ = null, responses = {}, results = null;
 
+// Navigation
 function showHome() {
-    document.getElementById('home-section').classList.remove('hidden');
-    document.getElementById('questionnaire-section').classList.add('hidden');
-    document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('home-section').classList.remove('hidden');
+  document.getElementById('questionnaire-section').classList.add('hidden');
+  document.getElementById('results-section').classList.add('hidden');
 }
 
 function showQuestionnaire() {
-    document.getElementById('home-section').classList.add('hidden');
-    document.getElementById('questionnaire-section').classList.remove('hidden');
-    document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('home-section').classList.add('hidden');
+  document.getElementById('questionnaire-section').classList.remove('hidden');
+  document.getElementById('results-section').classList.add('hidden');
 }
 
 function showResults() {
-    document.getElementById('home-section').classList.add('hidden');
-    document.getElementById('questionnaire-section').classList.add('hidden');
-    document.getElementById('results-section').classList.remove('hidden');
+  document.getElementById('home-section').classList.add('hidden');
+  document.getElementById('questionnaire-section').classList.add('hidden');
+  document.getElementById('results-section').classList.remove('hidden');
 }
 
 function backToQuestionnaire() { showQuestionnaire(); }
 
 function loadQuestionnaire(id) {
-    currentQ = QUESTIONNAIRES[id];
-    responses = {};
-    document.getElementById('q-abbr').textContent = currentQ.abbr;
-    document.getElementById('q-title').textContent = currentQ.name;
-    document.getElementById('q-citation').textContent = currentQ.citation;
-    document.getElementById('system-name').value = '';
-    renderQuestions();
-    showQuestionnaire();
+  currentQ = QUESTIONNAIRES[id];
+  responses = {};
+  document.getElementById('q-abbr').textContent = currentQ.abbr;
+  document.getElementById('q-title').textContent = currentQ.name;
+  document.getElementById('q-citation').textContent = currentQ.citation;
+  document.getElementById('system-name').value = '';
+  renderQuestions();
+  showQuestionnaire();
 }
 
-// ============================================
-// ROUTING (hash-based)
-// ============================================
+// Routing
 const route = () => (location.hash.replace(/^#\/?/, '').split('?')[0] || '').toLowerCase();
 
 function go(path = '') {
-  const next = `#/${path}`;                 // "" -> "#/"
+  const next = `#/${path}`;
   if (location.hash === next) applyRoute();
   else location.hash = next;
 }
@@ -399,153 +387,134 @@ function applyRoute() {
 addEventListener('hashchange', applyRoute);
 addEventListener('DOMContentLoaded', applyRoute);
 
+// Render Questions
 function renderQuestions() {
-    const container = document.getElementById('questions-container');
-    container.innerHTML = '';
-    currentQ.questions.forEach((q) => {
-        const div = document.createElement('div');
-        div.id = 'question-' + q.id;
-        div.className = 'question-card';
-        let scaleHTML = currentQ.isNPS ? renderNPS(q) : renderLikert(q);
-        div.innerHTML = `
-            <div class="flex gap-3 mb-4">
-                <span class="font-mono text-xs bg-accent-300/10 text-accent-300 px-2 py-1 rounded shrink-0">Q${q.id}</span>
-                <p class="text-dark-100">${q.text}${q.r ? ' <span class="text-dark-500 text-sm italic">(reverse-scored)</span>' : ''}</p>
-            </div>
-            ${scaleHTML}
-        `;
-        container.appendChild(div);
-    });
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+  currentQ.questions.forEach(q => {
+    const div = document.createElement('div');
+    div.id = 'question-' + q.id;
+    div.className = 'question-card';
+    div.innerHTML = `
+      <div class="q-text">
+        <span class="q-num">Q${q.id}</span>
+        <p>${q.text}${q.r ? ' <span class="rev">(reverse-scored)</span>' : ''}</p>
+      </div>
+      ${currentQ.isNPS ? renderNPS(q) : renderLikert(q)}
+    `;
+    container.appendChild(div);
+  });
 }
 
 function renderLikert(q) {
-    const { scaleMin, scaleMax, labels } = currentQ;
-    const cols = scaleMax - scaleMin + 1;
-    let options = '';
-    for (let i = scaleMin; i <= scaleMax; i++) {
-        options += `<div class="likert-option">
-            <input type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}" onchange="handleResponse(${q.id}, ${i})">
-            <label for="q${q.id}_${i}">${i}</label>
-        </div>`;
-    }
-    return `
-        <div class="flex justify-between text-xs text-dark-400 mb-2 px-1">
-            <span>${labels[0]}</span>
-            <span>${labels[1]}</span>
-        </div>
-        <div class="grid gap-1.5" style="grid-template-columns: repeat(${cols}, minmax(0, 1fr));">
-            ${options}
-        </div>
-    `;
+  const { scaleMin, scaleMax, labels } = currentQ;
+  const cols = scaleMax - scaleMin + 1;
+  let opts = '';
+  for (let i = scaleMin; i <= scaleMax; i++) {
+    opts += `<div class="likert-opt">
+      <input type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}" onchange="handleResponse(${q.id}, ${i})">
+      <label for="q${q.id}_${i}">${i}</label>
+    </div>`;
+  }
+  return `
+    <div class="scale-labels"><span>${labels[0]}</span><span>${labels[1]}</span></div>
+    <div class="likert" style="grid-template-columns: repeat(${cols}, 1fr);">${opts}</div>
+  `;
 }
 
 function renderNPS(q) {
-    let options = '';
-    for (let i = 0; i <= 10; i++) {
-        const type = i >= 9 ? 'promoter' : i >= 7 ? 'passive' : 'detractor';
-        options += `<div class="nps-option ${type}">
-            <input type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}" onchange="handleResponse(${q.id}, ${i})">
-            <label for="q${q.id}_${i}">${i}</label>
-        </div>`;
-    }
-    return `
-        <div class="grid grid-cols-6 sm:grid-cols-11 gap-1">${options}</div>
-        <div class="flex justify-between text-xs text-dark-400 mt-2 px-1">
-            <span>Not at all likely</span>
-            <span>Extremely likely</span>
-        </div>
-    `;
+  let opts = '';
+  for (let i = 0; i <= 10; i++) {
+    const type = i >= 9 ? 'promoter' : i >= 7 ? 'passive' : 'detractor';
+    opts += `<div class="nps-opt ${type}">
+      <input type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}" onchange="handleResponse(${q.id}, ${i})">
+      <label for="q${q.id}_${i}">${i}</label>
+    </div>`;
+  }
+  return `
+    <div class="nps">${opts}</div>
+    <div class="scale-labels" style="margin-top:0.5rem"><span>Not at all likely</span><span>Extremely likely</span></div>
+  `;
 }
 
 function handleResponse(qId, val) {
-    responses[qId] = val;
-    const el = document.getElementById('question-' + qId);
-    el.classList.add('question-answered');
+  responses[qId] = val;
+  document.getElementById('question-' + qId).classList.add('answered');
 }
 
 function resetForm() {
-    responses = {};
-    document.querySelectorAll('#questionnaire-form input[type="radio"]').forEach(r => r.checked = false);
-    document.querySelectorAll('[id^="question-"]').forEach(q => q.classList.remove('question-answered'));
-    document.getElementById('system-name').value = '';
+  responses = {};
+  document.querySelectorAll('#questionnaire-form input[type="radio"]').forEach(r => r.checked = false);
+  document.querySelectorAll('[id^="question-"]').forEach(q => q.classList.remove('answered'));
+  document.getElementById('system-name').value = '';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('questionnaire-form');
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (Object.keys(responses).length < currentQ.questions.length) {
-                alert('Please answer all ' + currentQ.questions.length + ' questions.');
-                return;
-            }
-            results = SCORING.calculate(currentQ.id, responses, currentQ);
-            displayResults();
-        });
-    }
+  const form = document.getElementById('questionnaire-form');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (Object.keys(responses).length < currentQ.questions.length) {
+        alert('Please answer all ' + currentQ.questions.length + ' questions.');
+        return;
+      }
+      results = SCORING.calculate(currentQ.id, responses, currentQ);
+      displayResults();
+    });
+  }
 });
 
 function displayResults() {
-    document.getElementById('main-score').textContent = results.overall;
-    document.getElementById('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : currentQ.isNPS ? '' : '/' + currentQ.scoreMax;
-    document.getElementById('score-label').textContent = currentQ.isNPS ? results.category : 'Overall Score';
-    document.getElementById('interpretation-text').textContent = results.interpretation;
-    document.getElementById('grade-badge').textContent = 'Grade: ' + results.grade;
-    
-    // Animate score circle
-    const progress = document.getElementById('score-progress');
-    const circumference = 339.292;
-    let pct;
-    if (currentQ.isNPS) pct = (results.overall + 100) / 200;
-    else if (currentQ.scoreMax === 100) pct = results.overall / 100;
-    else pct = (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
-    setTimeout(() => {
-        progress.style.strokeDashoffset = circumference - (pct * circumference);
-    }, 100);
-    
-    // Subscales
-    const subContainer = document.getElementById('subscales-container');
-    subContainer.innerHTML = '';
-    if (results.subscales && Object.keys(results.subscales).length > 0) {
-        Object.keys(results.subscales).forEach(key => {
-            const s = results.subscales[key];
-            const pctBar = (s.score / s.max) * 100;
-            subContainer.innerHTML += `
-                <div class="subscale-card">
-                    <p class="text-xs text-dark-400 mb-1">${s.name}</p>
-                    <p class="text-2xl font-serif text-accent-300">${s.score}<span class="text-sm text-dark-500">/${s.max}</span></p>
-                    <div class="subscale-bar mt-2">
-                        <div class="subscale-fill" style="width: ${pctBar}%"></div>
-                    </div>
-                </div>
-            `;
-        });
-    }
-    
-    // Responses table
-    const tbody = document.getElementById('responses-tbody');
-    tbody.innerHTML = '';
-    currentQ.questions.forEach(q => {
-        const resp = responses[q.id];
-        const adj = currentQ.id === 'sus' ? (q.r ? 5 - resp : resp - 1) : '-';
-        tbody.innerHTML += `
-            <tr>
-                <td class="py-3 px-2 font-mono text-accent-300">Q${q.id}</td>
-                <td class="py-3 px-2 text-dark-300">${q.text}${q.r ? ' <em class="text-dark-500">(R)</em>' : ''}</td>
-                <td class="py-3 px-2 text-center font-mono text-dark-200">${resp}</td>
-                <td class="py-3 px-2 text-center font-mono text-dark-200">${adj}</td>
-            </tr>
-        `;
+  document.getElementById('main-score').textContent = results.overall;
+  document.getElementById('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : currentQ.isNPS ? '' : '/' + currentQ.scoreMax;
+  document.getElementById('score-label').textContent = currentQ.isNPS ? results.category : 'Overall Score';
+  document.getElementById('interpretation-text').textContent = results.interpretation;
+  document.getElementById('grade-badge').textContent = 'Grade: ' + results.grade;
+
+  // Animate score
+  const progress = document.getElementById('score-progress');
+  const circumference = 339.292;
+  let pct;
+  if (currentQ.isNPS) pct = (results.overall + 100) / 200;
+  else if (currentQ.scoreMax === 100) pct = results.overall / 100;
+  else pct = (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
+  setTimeout(() => { progress.style.strokeDashoffset = circumference - (pct * circumference); }, 100);
+
+  // Subscales
+  const subContainer = document.getElementById('subscales-container');
+  subContainer.innerHTML = '';
+  if (results.subscales && Object.keys(results.subscales).length) {
+    Object.keys(results.subscales).forEach(key => {
+      const s = results.subscales[key];
+      const pctBar = (s.score / s.max) * 100;
+      subContainer.innerHTML += `
+        <div class="subscale-card">
+          <p>${s.name}</p>
+          <p class="score">${s.score}<span>/${s.max}</span></p>
+          <div class="subscale-bar"><div class="subscale-fill" style="width:${pctBar}%"></div></div>
+        </div>
+      `;
     });
-    
-    showResults();
+  }
+
+  // Table
+  const tbody = document.getElementById('responses-tbody');
+  tbody.innerHTML = '';
+  currentQ.questions.forEach(q => {
+    const resp = responses[q.id];
+    const adj = currentQ.id === 'sus' ? (q.r ? 5 - resp : resp - 1) : '-';
+    tbody.innerHTML += `<tr>
+      <td>Q${q.id}</td>
+      <td>${q.text}${q.r ? ' <em>(R)</em>' : ''}</td>
+      <td>${resp}</td>
+      <td>${adj}</td>
+    </tr>`;
+  });
+
+  showResults();
 }
 
-// ============================================
-// EXPORT FUNCTIONS
-// ============================================
-
-
+// Export Functions
 const stamp = () => new Date().toISOString().slice(0, 10);
 const sysName = () => document.getElementById('system-name').value || 'Unnamed System';
 const baseName = () => `${currentQ.abbr}_Results_${stamp()}`;
@@ -559,144 +528,183 @@ function saveBlob(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
-async function downloadPDF() {
-  saveBlob(await generatePDF(sysName()), baseName() + '.pdf');
-}
-
-function downloadCSV() {
-  const blob = new Blob([generateCSV(sysName())], { type: 'text/csv;charset=utf-8' });
-  saveBlob(blob, baseName() + '.csv');
-}
-
-function downloadTXT() {
-  const blob = new Blob([generateTXT(sysName())], { type: 'text/plain;charset=utf-8' });
-  saveBlob(blob, baseName() + '.txt');
-}
+async function downloadPDF() { saveBlob(await generatePDF(sysName()), baseName() + '.pdf'); }
+function downloadCSV() { saveBlob(new Blob([generateCSV(sysName())], { type: 'text/csv' }), baseName() + '.csv'); }
+function downloadTXT() { saveBlob(new Blob([generateTXT(sysName())], { type: 'text/plain' }), baseName() + '.txt'); }
 
 async function sharePDF() {
-  if (!navigator.share) return alert('Sharing not supported on this browser.');
+  if (!navigator.share) return alert('Sharing not supported.');
   if (!currentQ || !results) return alert('Generate results first.');
-
-  const name = baseName() + '.pdf';
   const blob = await generatePDF(sysName());
-  const file = new File([blob], name, { type: 'application/pdf' });
-
-  if (navigator.canShare && !navigator.canShare({ files: [file] })) {
-    return downloadPDF();
-  }
-
-  await navigator.share({ files: [file], title: name });
+  const file = new File([blob], baseName() + '.pdf', { type: 'application/pdf' });
+  if (navigator.canShare && !navigator.canShare({ files: [file] })) return downloadPDF();
+  await navigator.share({ files: [file], title: baseName() + '.pdf' });
 }
 
 async function exportResults() {
   const pdf = document.getElementById('export-pdf').checked;
   const csv = document.getElementById('export-csv').checked;
   const txt = document.getElementById('export-txt').checked;
-
-  if (!pdf && !csv && !txt) return alert('Please select at least one export format.');
-
+  if (!pdf && !csv && !txt) return alert('Select at least one format.');
   const zip = new JSZip();
   const base = baseName();
   const system = sysName();
-
   if (pdf) zip.file(base + '.pdf', await generatePDF(system));
   if (csv) zip.file(base + '.csv', generateCSV(system));
   if (txt) zip.file(base + '.txt', generateTXT(system));
-
   saveBlob(await zip.generateAsync({ type: 'blob' }), base + '.zip');
 }
 
 function generatePDF(systemName) {
-    return new Promise((resolve) => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        let y = 20;
-        
-        doc.setFillColor(26, 54, 93);
-        doc.rect(0, 0, 210, 40, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(20);
-        doc.setFont('helvetica', 'bold');
-        doc.text('UX Scale Labs', 20, 18);
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        doc.text('Research-Grade Questionnaire Results', 20, 26);
-        doc.text('Generated: ' + new Date().toLocaleDateString(), 20, 34);
-        
-        y = 55;
-        doc.setTextColor(26, 54, 93);
-        doc.setFontSize(16);
-        doc.setFont('helvetica', 'bold');
-        doc.text(currentQ.abbr + ' - ' + currentQ.name, 20, y);
-        y += 8;
-        doc.setFontSize(10);
-        doc.setTextColor(100, 100, 100);
-        doc.setFont('helvetica', 'normal');
-        doc.text('System: ' + systemName, 20, y);
-        y += 15;
-        
-        doc.setFillColor(247, 250, 252);
-        doc.roundedRect(20, y, 170, 35, 3, 3, 'F');
-        doc.setTextColor(183, 121, 31);
-        doc.setFontSize(32);
-        doc.setFont('helvetica', 'bold');
-        doc.text(String(results.overall), 35, y + 25);
-        doc.setTextColor(100, 100, 100);
-        doc.setFontSize(10);
-        doc.text(currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax, 70, y + 25);
-        doc.text('Grade: ' + results.grade, 140, y + 25);
-        y += 45;
-        
-        doc.setTextColor(26, 54, 93);
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Interpretation', 20, y);
-        y += 7;
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(60, 60, 60);
-        const lines = doc.splitTextToSize(results.interpretation, 170);
-        doc.text(lines, 20, y);
-        y += lines.length * 5 + 10;
-        
-        doc.setTextColor(26, 54, 93);
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Responses', 20, y);
-        y += 8;
-        doc.setFontSize(8);
-        doc.setFont('helvetica', 'normal');
-        currentQ.questions.forEach((q, i) => {
-            if (y > 270) { doc.addPage(); y = 20; }
-            doc.setTextColor(183, 121, 31);
-            doc.text('Q' + q.id, 20, y);
-            doc.setTextColor(60, 60, 60);
-            const txt = q.text.length > 80 ? q.text.substring(0, 77) + '...' : q.text;
-            doc.text(txt, 30, y);
-            doc.text(String(responses[q.id]), 180, y);
-            y += 6;
-        });
-        
-        resolve(doc.output('blob'));
+  return new Promise(resolve => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let y = 20;
+    doc.setFillColor(26, 54, 93);
+    doc.rect(0, 0, 210, 40, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('UX Scale Labs', 20, 18);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Research-Grade Questionnaire Results', 20, 26);
+    doc.text('Generated: ' + new Date().toLocaleDateString(), 20, 34);
+    y = 55;
+    doc.setTextColor(26, 54, 93);
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text(currentQ.abbr + ' - ' + currentQ.name, 20, y);
+    y += 8;
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.setFont('helvetica', 'normal');
+    doc.text('System: ' + systemName, 20, y);
+    y += 15;
+    doc.setFillColor(247, 250, 252);
+    doc.roundedRect(20, y, 170, 35, 3, 3, 'F');
+    doc.setTextColor(183, 121, 31);
+    doc.setFontSize(32);
+    doc.setFont('helvetica', 'bold');
+    doc.text(String(results.overall), 35, y + 25);
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(10);
+    doc.text(currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax, 70, y + 25);
+    doc.text('Grade: ' + results.grade, 140, y + 25);
+    y += 45;
+    doc.setTextColor(26, 54, 93);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Interpretation', 20, y);
+    y += 7;
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(60, 60, 60);
+    const lines = doc.splitTextToSize(results.interpretation, 170);
+    doc.text(lines, 20, y);
+    y += lines.length * 5 + 10;
+    doc.setTextColor(26, 54, 93);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Responses', 20, y);
+    y += 8;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    currentQ.questions.forEach(q => {
+      if (y > 270) { doc.addPage(); y = 20; }
+      doc.setTextColor(183, 121, 31);
+      doc.text('Q' + q.id, 20, y);
+      doc.setTextColor(60, 60, 60);
+      const txt = q.text.length > 80 ? q.text.substring(0, 77) + '...' : q.text;
+      doc.text(txt, 30, y);
+      doc.text(String(responses[q.id]), 180, y);
+      y += 6;
     });
+    resolve(doc.output('blob'));
+  });
 }
 
 function generateCSV(systemName) {
-    let lines = ['UX Scale Labs Results', 'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name, 'System,' + systemName, 'Date,' + new Date().toISOString(), '', 'SCORES', 'Overall,' + results.overall, 'Grade,' + results.grade, '', 'RESPONSES', 'Item,Question,Response,Reversed'];
-    currentQ.questions.forEach(q => {
-        lines.push(q.id + ',"' + q.text.replace(/"/g, '""') + '",' + responses[q.id] + ',' + (q.r ? 'Yes' : 'No'));
-    });
-    return lines.join('\n');
+  let lines = ['UX Scale Labs Results', 'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name, 'System,' + systemName, 'Date,' + new Date().toISOString(), '', 'SCORES', 'Overall,' + results.overall, 'Grade,' + results.grade, '', 'RESPONSES', 'Item,Question,Response,Reversed'];
+  currentQ.questions.forEach(q => {
+    lines.push(q.id + ',"' + q.text.replace(/"/g, '""') + '",' + responses[q.id] + ',' + (q.r ? 'Yes' : 'No'));
+  });
+  return lines.join('\n');
 }
 
 function generateTXT(systemName) {
-    const div = '='.repeat(60);
-    let lines = [div, '  UX SCALE LABS - RESULTS REPORT', div, '', 'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name, 'System: ' + systemName, 'Date: ' + new Date().toLocaleString(), '', '-'.repeat(60), '  SCORE SUMMARY', '-'.repeat(60), '', '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax), '  Grade: ' + results.grade, '', '  ' + results.interpretation, '', '-'.repeat(60), '  RESPONSES', '-'.repeat(60), ''];
-    currentQ.questions.forEach(q => {
-        lines.push('  Q' + q.id + '. ' + q.text);
-        lines.push('      Response: ' + responses[q.id] + (q.r ? ' (reversed)' : ''));
-        lines.push('');
-    });
-    lines.push(div);
-    return lines.join('\n');
+  const div = '='.repeat(60);
+  let lines = [div, '  UX SCALE LABS - RESULTS REPORT', div, '', 'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name, 'System: ' + systemName, 'Date: ' + new Date().toLocaleString(), '', '-'.repeat(60), '  SCORE SUMMARY', '-'.repeat(60), '', '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax), '  Grade: ' + results.grade, '', '  ' + results.interpretation, '', '-'.repeat(60), '  RESPONSES', '-'.repeat(60), ''];
+  currentQ.questions.forEach(q => {
+    lines.push('  Q' + q.id + '. ' + q.text);
+    lines.push('      Response: ' + responses[q.id] + (q.r ? ' (reversed)' : ''));
+    lines.push('');
+  });
+  lines.push(div);
+  return lines.join('\n');
+}
+
+// Print Questionnaire Function
+function printQuestionnaire(id) {
+  const q = QUESTIONNAIRES[id];
+  if (!q) return;
+
+  const template = document.getElementById('print-template');
+  let html = `
+    <div class="print-page">
+      <div class="print-header">
+        <h1>${q.abbr} – ${q.name}</h1>
+        <p>${q.citation}</p>
+      </div>
+      <div class="print-meta">
+        <div><label>Participant ID:</label><div class="line"></div></div>
+        <div><label>System/Product:</label><div class="line"></div></div>
+        <div><label>Date:</label><div class="line"></div></div>
+      </div>
+      <p style="font-size:0.85rem;color:#444;margin-bottom:1rem;">
+        Please rate each statement on a scale from <strong>${q.scaleMin}</strong> (${q.labels[0]}) to <strong>${q.scaleMax}</strong> (${q.labels[1]}).
+      </p>
+  `;
+
+  q.questions.forEach(item => {
+    html += `<div class="print-q">
+      <div class="print-q-text">
+        <span>${item.id}.</span>
+        <p>${item.text}</p>
+      </div>`;
+
+    if (q.isNPS) {
+      html += `<div class="print-nps">`;
+      for (let i = 0; i <= 10; i++) {
+        html += `<div class="box">${i}</div>`;
+      }
+      html += `</div>`;
+    } else {
+      html += `<div class="print-scale">
+        <span>${q.labels[0]}</span>
+        <div class="boxes">`;
+      for (let i = q.scaleMin; i <= q.scaleMax; i++) {
+        html += `<div class="box">${i}</div>`;
+      }
+      html += `</div>
+        <span>${q.labels[1]}</span>
+      </div>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `
+      <div class="print-footer">
+        Generated by UX Scale Labs • uxscalelabs.online
+      </div>
+    </div>
+  `;
+
+  template.innerHTML = html;
+
+  // Open print dialog
+  window.print();
+
+  // Clear after print
+  setTimeout(() => { template.innerHTML = ''; }, 1000);
 }
