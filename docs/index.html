@@ -24,7 +24,6 @@
     "browserRequirements": "Requires JavaScript"
     }
   </script>
-
   <meta name="theme-color" content="#1a365d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +42,7 @@
         <span>UX Scale Labs</span>
       </a>
       <nav>
-        <a href="#">Scales</a>
+        <a href="#" onclick="showHome(); return false;">Scales</a>
         <a href="#about">About</a>
       </nav>
     </div>
@@ -255,21 +254,30 @@
           <tbody id="responses-tbody"></tbody>
         </table>
       </div>
-      <div class="export-section">
-        <h3>Export Results</h3>
-        <div class="export-options">
-          <label><input type="checkbox" id="export-pdf" checked> PDF Report</label>
-          <label><input type="checkbox" id="export-csv" checked> CSV Data</label>
-          <label><input type="checkbox" id="export-txt" checked> Plain Text</label>
+        <div class="export-section">
+            <h3>Export Results</h3>
+
+            <div class="export-row">
+                <div class="export-left">
+                <button class="export-zip" onclick="exportResults()" title="Download a ZIP with selected formats">
+                    🗜️ <span>ZIP</span>
+                </button>
+                </div>
+
+                <div class="export-toggles" aria-label="ZIP bundle formats">
+                <label><input type="checkbox" id="export-pdf" checked> PDF</label>
+                <label><input type="checkbox" id="export-csv" checked> CSV</label>
+                <label><input type="checkbox" id="export-txt" checked> TXT</label>
+                </div>
+            </div>
+
+            <div class="export-btns">
+                <button class="btn-primary" onclick="downloadPDF()">📄 PDF</button>
+                <button onclick="downloadCSV()">🧾 CSV</button>
+                <button onclick="downloadTXT()">📝 TEXT</button>
+                <button class="btn-ghost" onclick="sharePDF()">🔗 SHARE</button>
+            </div>
         </div>
-        <div class="export-btns">
-          <button onclick="exportResults()">ZIP</button>
-          <button onclick="downloadPDF()">PDF</button>
-          <button onclick="downloadTXT()">TEXT</button>
-          <button onclick="downloadCSV()">CSV</button>
-          <button onclick="sharePDF()">SHARE</button>
-        </div>
-      </div>
     </div>
   </main>
 
