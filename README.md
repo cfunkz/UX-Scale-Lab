@@ -45,19 +45,19 @@
 ## 🖼️ Screenshots
 
 ### Home / Scale Selection
-<img width="1889" height="869" alt="Home / Scale Selection" src="https://github.com/user-attachments/assets/7c31961b-a302-43c4-99f3-545387c8afe8" />
+<img width="1887" height="859" alt="image" src="https://github.com/user-attachments/assets/abdeb97d-d2ba-49d3-a789-a19002d411d5" />
 
 <details>
   <summary><b>Questions & Results</b></summary>
   <br/>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/a1e6de70-4f7e-44cb-baea-ee0c322eb7d2" alt="2" width="92%">
+    <img src="https://github.com/user-attachments/assets/cf63f12d-109f-4c20-855d-1c74accf77bb" alt="2" width="92%">
   </p>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/7cb4aefd-a7b6-4dc4-b3a3-f0cab93c12ac" alt="1" width="92%">
+    <img src="https://github.com/user-attachments/assets/7c4fa68c-fe66-4203-9b25-0e49041eee40" alt="1" width="92%">
   </p>
   <p align="center">
-    <img src="https://github.com/user-attachments/assets/c93b6198-4338-4a42-a40c-570a4a540137" alt="2" width="92%">
+    <img src="https://github.com/user-attachments/assets/9a197e1a-cd0c-494c-8f72-77b41cef9b2c" alt="2" width="92%">
   </p>
 </details>
 
