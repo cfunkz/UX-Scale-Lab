@@ -352,21 +352,18 @@ function showHome() {
     document.getElementById('home-section').classList.remove('hidden');
     document.getElementById('questionnaire-section').classList.add('hidden');
     document.getElementById('results-section').classList.add('hidden');
-    window.scrollTo(0, 0);
 }
 
 function showQuestionnaire() {
     document.getElementById('home-section').classList.add('hidden');
     document.getElementById('questionnaire-section').classList.remove('hidden');
     document.getElementById('results-section').classList.add('hidden');
-    window.scrollTo(0, 0);
 }
 
 function showResults() {
     document.getElementById('home-section').classList.add('hidden');
     document.getElementById('questionnaire-section').classList.add('hidden');
     document.getElementById('results-section').classList.remove('hidden');
-    window.scrollTo(0, 0);
 }
 
 function backToQuestionnaire() { showQuestionnaire(); }
