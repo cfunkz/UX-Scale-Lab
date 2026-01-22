@@ -19,6 +19,12 @@
     <meta property="og:url" content="https://cfunkz.github.io/UX-Scale-Lab/">
     <meta property="og:image" content="https://cfunkz.github.io/UX-Scale-Lab/og.png">
 
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UX Scale Lab – UX Questionnaires & Scoring">
+    <meta name="twitter:description" content="Validated UX questionnaires with instant scoring and exports.">
+    <meta name="twitter:image" content="https://cfunkz.github.io/UX-Scale-Lab/og.png">
+
     <script type="application/ld+json">
     {
     "@context": "https://schema.org",
@@ -391,10 +397,37 @@
                     <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="export-csv" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"><span class="text-sm text-gray-700">CSV Data</span></label>
                     <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="export-txt" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"><span class="text-sm text-gray-700">Plain Text</span></label>
                 </div>
-                <button onclick="exportResults()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    Download ZIP
-                </button>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button onclick="exportResults()"
+                        class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-medium">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download ZIP
+                    </button>
+
+                    <button onclick="downloadPDF()"
+                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                        PDF
+                    </button>
+
+                    <button onclick="downloadTXT()"
+                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                        Text
+                    </button>
+
+                    <button onclick="downloadCSV()"
+                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                        CSV
+                    </button>
+                    <button onclick="sharePDF()"
+                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
+                        Share
+                    </button>
+
+                </div>
+
             </div>
         </div>
     </main>
