@@ -620,7 +620,7 @@ function generatePDF(systemName) {
         doc.setTextColor(255, 255, 255);
         doc.setFontSize(20);
         doc.setFont('helvetica', 'bold');
-        doc.text('UX Scale Lab', 20, 18);
+        doc.text('UX Scale Labs', 20, 18);
         doc.setFontSize(10);
         doc.setFont('helvetica', 'normal');
         doc.text('Research-Grade Questionnaire Results', 20, 26);
@@ -685,7 +685,7 @@ function generatePDF(systemName) {
 }
 
 function generateCSV(systemName) {
-    let lines = ['UX Scale Lab Results', 'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name, 'System,' + systemName, 'Date,' + new Date().toISOString(), '', 'SCORES', 'Overall,' + results.overall, 'Grade,' + results.grade, '', 'RESPONSES', 'Item,Question,Response,Reversed'];
+    let lines = ['UX Scale Labs Results', 'Questionnaire,' + currentQ.abbr + ' - ' + currentQ.name, 'System,' + systemName, 'Date,' + new Date().toISOString(), '', 'SCORES', 'Overall,' + results.overall, 'Grade,' + results.grade, '', 'RESPONSES', 'Item,Question,Response,Reversed'];
     currentQ.questions.forEach(q => {
         lines.push(q.id + ',"' + q.text.replace(/"/g, '""') + '",' + responses[q.id] + ',' + (q.r ? 'Yes' : 'No'));
     });
@@ -694,7 +694,7 @@ function generateCSV(systemName) {
 
 function generateTXT(systemName) {
     const div = '='.repeat(60);
-    let lines = [div, '  UX SCALE LAB - RESULTS REPORT', div, '', 'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name, 'System: ' + systemName, 'Date: ' + new Date().toLocaleString(), '', '-'.repeat(60), '  SCORE SUMMARY', '-'.repeat(60), '', '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax), '  Grade: ' + results.grade, '', '  ' + results.interpretation, '', '-'.repeat(60), '  RESPONSES', '-'.repeat(60), ''];
+    let lines = [div, '  UX SCALE LABS - RESULTS REPORT', div, '', 'Questionnaire: ' + currentQ.abbr + ' - ' + currentQ.name, 'System: ' + systemName, 'Date: ' + new Date().toLocaleString(), '', '-'.repeat(60), '  SCORE SUMMARY', '-'.repeat(60), '', '  Overall Score: ' + results.overall + (currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax), '  Grade: ' + results.grade, '', '  ' + results.interpretation, '', '-'.repeat(60), '  RESPONSES', '-'.repeat(60), ''];
     currentQ.questions.forEach(q => {
         lines.push('  Q' + q.id + '. ' + q.text);
         lines.push('      Response: ' + responses[q.id] + (q.r ? ' (reversed)' : ''));
