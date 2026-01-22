@@ -29,9 +29,8 @@
 https://uxscalelabs.online/
 
 ## Features
-- 13 academically validated UX scales  
-- Faithful automatic scoring (original scoring rules preserved)  
-- All processing happens in the browser – no data leaves your device  
+- 13 academically validated UX scales   
+- All processing happens in the browser, no data leaves your device  
 - Export results as PDF, CSV or TXT (zipped bundle)  
 - Mobile-responsive and touch-friendly interface  
 - Direct links to individual questionnaires  
