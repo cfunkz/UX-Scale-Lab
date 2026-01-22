@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UX Scale Labs | Research-Grade Questionnaires</title>
-    
-    <meta name="description"
-        content="Research-grade UX questionnaires with validated scoring algorithms. Includes SUS, UMUX, NPS, CSUQ and more. Instant scoring and exports.">
-
-    <link rel="canonical" href="https://uxscalelabs.online/">
-    <meta name="robots" content="index,follow">
-    <meta name="theme-color" content="#1a365d">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="UX Scale Labs – UX Questionnaires & Scoring">
-    <meta property="og:description" content="Validated UX questionnaires with instant scoring and exports. Runs entirely in the browser.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://uxscalelabs.online/">
-
-    <script type="application/ld+json">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UX Scale Labs | Research-Grade Questionnaires</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="Research-grade UX questionnaires with validated scoring algorithms. Includes SUS, UMUX, NPS, CSUQ and more. Instant scoring and exports.">
+  <link rel="canonical" href="https://uxscalelabs.online/">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#1a365d">
+  <meta property="og:title" content="UX Scale Labs – UX Questionnaires & Scoring">
+  <meta property="og:description" content="Validated UX questionnaires with instant scoring and exports. Runs entirely in the browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://uxscalelabs.online/">
+  <script type="application/ld+json">
     {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -28,479 +23,289 @@
     "url": "https://uxscalelabs.online/",
     "browserRequirements": "Requires JavaScript"
     }
-    </script>
+  </script>
 
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1a365d',
-                        secondary: '#2c5282',
-                        accent: '#b7791f',
-                        surface: '#f7fafc',
-                        muted: '#718096'
-                    },
-                    fontFamily: {
-                        serif: ['Libre Baskerville', 'Georgia', 'serif'],
-                        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <style>
-        body { font-family: 'Source Sans 3', system-ui, sans-serif; }
-        .font-serif { font-family: 'Libre Baskerville', Georgia, serif; }
-        .font-mono { font-family: 'JetBrains Mono', monospace; }
-        
-        .likert-radio:checked + label { background: #1a365d; color: white; border-color: #1a365d; }
-        .nps-radio:checked + label.detractor { background: #c53030; border-color: #c53030; color: white; }
-        .nps-radio:checked + label.passive { background: #d69e2e; border-color: #d69e2e; color: white; }
-        .nps-radio:checked + label.promoter { background: #2f855a; border-color: #2f855a; color: white; }
-        
-        .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1); }
-        
-        .score-progress { transition: stroke-dashoffset 1s ease-out; }
-        .question-answered { border-color: #2c5282 !important; background: #f0f5ff; }
-        
-        @media print { .no-print { display: none !important; } }
-    </style>
-    <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#1a365d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-    
-    <!-- Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <a href="#" onclick="showHome(); return false;" class="flex items-center gap-2 text-primary hover:text-secondary transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-                <span class="font-serif font-bold text-lg">UX Scale Labs</span>
-            </a>
-            <nav class="flex items-center gap-4 sm:gap-6 text-sm font-medium">
-                <a href="#" onclick="showHome(); return false;" class="text-gray-600 hover:text-primary transition-colors">Scales</a>
-                <a href="#about" class="text-gray-600 hover:text-primary transition-colors hidden sm:inline">About</a>
-                <a href="#references" class="text-gray-600 hover:text-primary transition-colors hidden sm:inline">References</a>
-            </nav>
-        </div>
-    </header>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" onclick="showHome(); return false;" class="logo">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        <span>UX Scale Labs</span>
+      </a>
+      <nav>
+        <a href="#">Scales</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Home Section -->
-    <main id="home-section" class="pt-24 pb-16">
-        <section class="max-w-4xl mx-auto px-4 sm:px-6 text-center py-12 md:py-20">
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/20 rounded-full text-primary text-sm font-medium mb-6">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                13 Research-Validated Instruments
-            </div>
-            <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-primary leading-tight mb-6">
-                Measure User Experience<br>
-                <span class="text-secondary italic">with Scientific Precision</span>
-            </h1>
-            <p class="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Professional-grade UX questionnaires with validated scoring algorithms. 
-                Export results as PDF, CSV, or TXT. All data stays in your browser.
-            </p>
-        </section>
-
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 space-y-12 md:space-y-16">
-            <!-- Usability Scales -->
-            <div>
-                <div class="flex items-baseline gap-4 mb-6 border-b border-gray-200 pb-4">
-                    <span class="font-mono text-sm text-accent font-medium">01</span>
-                    <h2 class="font-serif text-xl sm:text-2xl text-primary">Usability Scales</h2>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('sus')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">SUS</span>
-                            <span class="text-xs text-gray-400 font-mono">10 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">System Usability Scale</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">The industry standard for measuring perceived usability. Yields a score from 0-100.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~3 min</span>
-                            <span>5-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('umux')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">UMUX</span>
-                            <span class="text-xs text-gray-400 font-mono">4 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Usability Metric for User Experience</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">A compact alternative to SUS with comparable reliability and validity.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~1 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('umux-lite')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">UMUX-L</span>
-                            <span class="text-xs text-gray-400 font-mono">2 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">UMUX-Lite</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Ultra-short usability measure for minimal participant burden.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~30 sec</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('csuq')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">CSUQ</span>
-                            <span class="text-xs text-gray-400 font-mono">16 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Computer System Usability Questionnaire</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">IBM's comprehensive measure with subscales for system and interface quality.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~5 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('pssuq')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">PSSUQ</span>
-                            <span class="text-xs text-gray-400 font-mono">16 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Post-Study System Usability Questionnaire</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Lab-based version of CSUQ for controlled usability studies.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~5 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Task-Level Measures -->
-            <div>
-                <div class="flex items-baseline gap-4 mb-6 border-b border-gray-200 pb-4">
-                    <span class="font-mono text-sm text-accent font-medium">02</span>
-                    <h2 class="font-serif text-xl sm:text-2xl text-primary">Task-Level Measures</h2>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl">
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('seq')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">SEQ</span>
-                            <span class="text-xs text-gray-400 font-mono">1 item</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Single Ease Question</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Quick task difficulty assessment after each task completion.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~10 sec</span>
-                            <span>7-point scale</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('asq')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">ASQ</span>
-                            <span class="text-xs text-gray-400 font-mono">3 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">After-Scenario Questionnaire</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Measures satisfaction with task completion across ease, time, and support.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~1 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Comprehensive UX -->
-            <div>
-                <div class="flex items-baseline gap-4 mb-6 border-b border-gray-200 pb-4">
-                    <span class="font-mono text-sm text-accent font-medium">03</span>
-                    <h2 class="font-serif text-xl sm:text-2xl text-primary">Comprehensive UX Measures</h2>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl">
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('use')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">USE</span>
-                            <span class="text-xs text-gray-400 font-mono">30 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">USE Questionnaire</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Evaluates Usefulness, Satisfaction, and Ease of Use with four subscales.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~8 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('tam')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">TAM</span>
-                            <span class="text-xs text-gray-400 font-mono">12 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Technology Acceptance Model</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Predicts technology adoption through perceived usefulness and ease of use.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~4 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Satisfaction & Loyalty -->
-            <div>
-                <div class="flex items-baseline gap-4 mb-6 border-b border-gray-200 pb-4">
-                    <span class="font-mono text-sm text-accent font-medium">04</span>
-                    <h2 class="font-serif text-xl sm:text-2xl text-primary">Satisfaction & Loyalty</h2>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl">
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('nps')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">NPS</span>
-                            <span class="text-xs text-gray-400 font-mono">1 item</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Net Promoter Score</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Measures customer loyalty and likelihood to recommend.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~10 sec</span>
-                            <span>0-10 scale</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('csat')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">CSAT</span>
-                            <span class="text-xs text-gray-400 font-mono">5 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Customer Satisfaction Score</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Direct measurement of customer satisfaction with product or service.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~1 min</span>
-                            <span>5-point scale</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
-
-            <!-- Generic Measures -->
-            <div>
-                <div class="flex items-baseline gap-4 mb-6 border-b border-gray-200 pb-4">
-                    <span class="font-mono text-sm text-accent font-medium">05</span>
-                    <h2 class="font-serif text-xl sm:text-2xl text-primary">Generic Measures</h2>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl">
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('learnability')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">SRL</span>
-                            <span class="text-xs text-gray-400 font-mono">6 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Self-Reported Learnability</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">Assesses how easily users can learn to use a system.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~2 min</span>
-                            <span>7-point Likert</span>
-                        </div>
-                    </article>
-                    <article class="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 card-hover cursor-pointer" onclick="go('basic-ux')">
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="inline-block px-2.5 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-mono font-medium rounded">BUX</span>
-                            <span class="text-xs text-gray-400 font-mono">8 items</span>
-                        </div>
-                        <h3 class="font-serif text-base sm:text-lg text-gray-900 mb-2">Basic UX Satisfaction Survey</h3>
-                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">General-purpose UX satisfaction measure for quick assessments.</p>
-                        <div class="flex items-center gap-4 text-xs text-gray-400 pt-3 border-t border-gray-100">
-                            <span>~2 min</span>
-                            <span>5-point Likert</span>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Questionnaire Section -->
-    <main id="questionnaire-section" class="hidden pt-24 pb-16">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="mb-8">
-                <button onclick="showHome()" class="inline-flex items-center gap-2 text-gray-500 hover:text-primary transition-colors mb-4 text-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    Back to Scales
-                </button>
-                <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                    <span id="q-abbr" class="px-3 py-1.5 bg-primary text-white text-sm font-mono font-medium rounded">SUS</span>
-                    <h1 id="q-title" class="font-serif text-xl sm:text-2xl md:text-3xl text-primary">System Usability Scale</h1>
-                </div>
-                <p id="q-citation" class="mt-2 text-sm text-gray-500 italic"></p>
-            </div>
-            <div class="mb-8">
-                <label for="system-name" class="block text-sm font-medium text-gray-700 mb-2">System/Product Name <span class="text-gray-400">(optional)</span></label>
-                <input type="text" id="system-name" class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors text-base" placeholder="e.g., Mobile Banking App v2.0">
-            </div>
-            <form id="questionnaire-form">
-                <div id="questions-container" class="space-y-4 sm:space-y-6"></div>
-                <div class="flex flex-col sm:flex-row gap-3 mt-10 pt-8 border-t border-gray-200">
-                    <button type="button" onclick="resetForm()" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium order-2 sm:order-1">Reset</button>
-                    <button type="submit" class="flex-1 px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-medium order-1 sm:order-2">Calculate Results</button>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <!-- Results Section -->
-    <main id="results-section" class="hidden pt-24 pb-16">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <button onclick="backToQuestionnaire()" class="inline-flex items-center gap-2 text-gray-500 hover:text-primary transition-colors mb-6 text-sm">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                Back to Questionnaire
-            </button>
-            <h1 class="font-serif text-2xl sm:text-3xl text-primary mb-8">Results</h1>
-            <div class="grid md:grid-cols-2 gap-4 sm:gap-6 mb-8">
-                <div class="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 text-center">
-                    <div class="relative inline-block mb-4">
-                        <svg class="w-32 h-32 sm:w-40 sm:h-40 transform -rotate-90" viewBox="0 0 120 120">
-                            <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="8"/>
-                            <circle id="score-progress" class="score-progress" cx="60" cy="60" r="54" fill="none" stroke="#1a365d" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
-                        </svg>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span id="main-score" class="text-4xl sm:text-5xl font-serif text-primary">0</span>
-                            <span id="score-max" class="text-sm text-gray-400 font-mono">/100</span>
-                        </div>
-                    </div>
-                    <p id="score-label" class="text-sm text-gray-500 uppercase tracking-wide">Overall Score</p>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 p-6 sm:p-8">
-                    <h3 class="font-serif text-lg text-primary mb-3">Interpretation</h3>
-                    <p id="interpretation-text" class="text-gray-600 leading-relaxed mb-4 text-sm sm:text-base"></p>
-                    <span id="grade-badge" class="inline-block px-4 py-2 bg-primary/10 text-primary font-mono font-medium rounded-full text-sm"></span>
-                </div>
-            </div>
-            <div id="subscales-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 mb-8"></div>
-            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden mb-8">
-                <div class="px-4 sm:px-6 py-4 border-b border-gray-200"><h3 class="font-serif text-lg text-primary">Individual Responses</h3></div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-50 text-left">
-                            <tr>
-                                <th class="px-4 sm:px-6 py-3 font-medium text-gray-500 whitespace-nowrap">Item</th>
-                                <th class="px-4 sm:px-6 py-3 font-medium text-gray-500">Question</th>
-                                <th class="px-4 sm:px-6 py-3 font-medium text-gray-500 text-center whitespace-nowrap">Response</th>
-                                <th class="px-4 sm:px-6 py-3 font-medium text-gray-500 text-center whitespace-nowrap">Adjusted</th>
-                            </tr>
-                        </thead>
-                        <tbody id="responses-tbody" class="divide-y divide-gray-100"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-200 p-4 sm:p-6">
-                <h3 class="font-serif text-lg text-primary mb-2">Export Results</h3>
-                <p class="text-sm text-gray-500 mb-4">Download your results in multiple formats as a ZIP archive.</p>
-                <div class="flex flex-wrap gap-4 sm:gap-6 mb-6">
-                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="export-pdf" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"><span class="text-sm text-gray-700">PDF Report</span></label>
-                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="export-csv" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"><span class="text-sm text-gray-700">CSV Data</span></label>
-                    <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="export-txt" checked class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"><span class="text-sm text-gray-700">Plain Text</span></label>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <button onclick="exportResults()"
-                        class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors font-medium">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Download ZIP
-                    </button>
-
-                    <button onclick="downloadPDF()"
-                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                        PDF
-                    </button>
-
-                    <button onclick="downloadTXT()"
-                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                        Text
-                    </button>
-
-                    <button onclick="downloadCSV()"
-                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                        CSV
-                    </button>
-                    <button onclick="sharePDF()"
-                        class="px-4 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                        Share
-                    </button>
-
-                </div>
-
-            </div>
-        </div>
-    </main>
-
-    <!-- About -->
-    <section id="about" class="bg-white border-t border-gray-200 py-12 sm:py-16">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <h2 class="font-serif text-2xl sm:text-3xl text-primary mb-4">About UX Scale Labs</h2>
-            <p class="text-gray-600 mb-10 max-w-2xl leading-relaxed">A collection of research-validated questionnaires for measuring user experience. All scoring algorithms are implemented according to their original academic publications.</p>
-            <div class="grid sm:grid-cols-3 gap-6 sm:gap-8">
-                <div class="text-center p-4 sm:p-6">
-                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                    </div>
-                    <h4 class="font-serif text-lg text-primary mb-2">Privacy First</h4>
-                    <p class="text-sm text-gray-600">All processing happens in your browser. No data is ever sent to any server.</p>
-                </div>
-                <div class="text-center p-4 sm:p-6">
-                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h4 class="font-serif text-lg text-primary mb-2">Validated Algorithms</h4>
-                    <p class="text-sm text-gray-600">Scoring methods from peer-reviewed academic publications.</p>
-                </div>
-                <div class="text-center p-4 sm:p-6">
-                    <div class="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    </div>
-                    <h4 class="font-serif text-lg text-primary mb-2">Multiple Exports</h4>
-                    <p class="text-sm text-gray-600">Download results as PDF reports, CSV data, or plain text.</p>
-                </div>
-            </div>
-        </div>
+  <!-- Home -->
+  <main id="home-section">
+    <section class="hero container">
+      <span class="badge">13 Research-Validated Instruments</span>
+      <h1>Measure User Experience<br><em>with Scientific Precision</em></h1>
+      <p>Professional-grade UX questionnaires with validated scoring algorithms. Export as PDF, CSV, or TXT. All data stays in your browser.</p>
     </section>
 
-    <!-- References -->
-    <section id="references" class="bg-gray-50 border-t border-gray-200 py-12 sm:py-16">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <h2 class="font-serif text-2xl sm:text-3xl text-primary mb-8">References</h2>
-            <div class="space-y-4 text-sm text-gray-600">
-                <p class="pl-6 -indent-6">Brooke, J. (1996). SUS: A "quick and dirty" usability scale. <em>Usability Evaluation in Industry</em>, 189–194.</p>
-                <p class="pl-6 -indent-6">Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. <em>MIS Quarterly</em>, 13(3), 319–340.</p>
-                <p class="pl-6 -indent-6">Finstad, K. (2010). The usability metric for user experience. <em>Interacting with Computers</em>, 22(5), 323–327.</p>
-                <p class="pl-6 -indent-6">Lewis, J. R. (1991). Psychometric evaluation of an after-scenario questionnaire. <em>ACM SIGCHI Bulletin</em>, 23(1), 78–81.</p>
-                <p class="pl-6 -indent-6">Lewis, J. R. (1995). IBM computer usability satisfaction questionnaires. <em>Intl. J. Human–Computer Interaction</em>, 7(1), 57–78.</p>
-                <p class="pl-6 -indent-6">Lewis, J. R., Utesch, B. S., & Maher, D. E. (2013). UMUX-LITE. <em>Proceedings of CHI '13</em>, 2099–2102.</p>
-                <p class="pl-6 -indent-6">Lund, A. M. (2001). Measuring usability with the USE questionnaire. <em>Usability Interface</em>, 8(2), 3–6.</p>
-                <p class="pl-6 -indent-6">Reichheld, F. F. (2003). The one number you need to grow. <em>Harvard Business Review</em>, 81(12), 46–54.</p>
-                <p class="pl-6 -indent-6">Sauro, J., & Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. <em>Proceedings of CHI '09</em>, 1599–1608.</p>
+    <section class="container scales-section">
+      <!-- Usability -->
+      <div class="category">
+        <div class="category-header"><span class="num">01</span><h2>Usability Scales</h2></div>
+        <div class="cards grid-3">
+          <article class="card" onclick="go('sus')">
+            <div class="card-top"><span class="tag">SUS</span><span class="meta">10 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('sus')" title="Print questionnaire">⎙</button>
             </div>
+            <h3>System Usability Scale</h3>
+            <p>The industry standard for measuring perceived usability. Yields a score from 0-100.</p>
+            <div class="card-footer"><span>~3 min</span><span>5-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('umux')">
+            <div class="card-top"><span class="tag">UMUX</span><span class="meta">4 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Usability Metric for User Experience</h3>
+            <p>A compact alternative to SUS with comparable reliability and validity.</p>
+            <div class="card-footer"><span>~1 min</span><span>7-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('umux-lite')">
+            <div class="card-top"><span class="tag">UMUX-L</span><span class="meta">2 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux-lite')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>UMUX-Lite</h3>
+            <p>Ultra-short usability measure for minimal participant burden.</p>
+            <div class="card-footer"><span>~30 sec</span><span>7-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('csuq')">
+            <div class="card-top"><span class="tag">CSUQ</span><span class="meta">16 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csuq')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Computer System Usability Questionnaire</h3>
+            <p>IBM's comprehensive measure with subscales for system and interface quality.</p>
+            <div class="card-footer"><span>~5 min</span><span>7-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('pssuq')">
+            <div class="card-top"><span class="tag">PSSUQ</span><span class="meta">16 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('pssuq')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Post-Study System Usability Questionnaire</h3>
+            <p>Lab-based version of CSUQ for controlled usability studies.</p>
+            <div class="card-footer"><span>~5 min</span><span>7-point Likert</span></div>
+          </article>
         </div>
+      </div>
+
+      <!-- Task-Level -->
+      <div class="category">
+        <div class="category-header"><span class="num">02</span><h2>Task-Level Measures</h2></div>
+        <div class="cards grid-2">
+          <article class="card" onclick="go('seq')">
+            <div class="card-top"><span class="tag">SEQ</span><span class="meta">1 item</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('seq')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Single Ease Question</h3>
+            <p>Quick task difficulty assessment after each task completion.</p>
+            <div class="card-footer"><span>~10 sec</span><span>7-point scale</span></div>
+          </article>
+          <article class="card" onclick="go('asq')">
+            <div class="card-top"><span class="tag">ASQ</span><span class="meta">3 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('asq')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>After-Scenario Questionnaire</h3>
+            <p>Measures satisfaction with task completion across ease, time, and support.</p>
+            <div class="card-footer"><span>~1 min</span><span>7-point Likert</span></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Comprehensive UX -->
+      <div class="category">
+        <div class="category-header"><span class="num">03</span><h2>Comprehensive UX Measures</h2></div>
+        <div class="cards grid-2">
+          <article class="card" onclick="go('use')">
+            <div class="card-top"><span class="tag">USE</span><span class="meta">30 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('use')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>USE Questionnaire</h3>
+            <p>Evaluates Usefulness, Satisfaction, and Ease of Use with four subscales.</p>
+            <div class="card-footer"><span>~8 min</span><span>7-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('tam')">
+            <div class="card-top"><span class="tag">TAM</span><span class="meta">12 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('tam')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Technology Acceptance Model</h3>
+            <p>Predicts technology adoption through perceived usefulness and ease of use.</p>
+            <div class="card-footer"><span>~4 min</span><span>7-point Likert</span></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Satisfaction & Loyalty -->
+      <div class="category">
+        <div class="category-header"><span class="num">04</span><h2>Satisfaction & Loyalty</h2></div>
+        <div class="cards grid-2">
+          <article class="card" onclick="go('nps')">
+            <div class="card-top"><span class="tag">NPS</span><span class="meta">1 item</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('nps')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Net Promoter Score</h3>
+            <p>Measures customer loyalty and likelihood to recommend.</p>
+            <div class="card-footer"><span>~10 sec</span><span>0-10 scale</span></div>
+          </article>
+          <article class="card" onclick="go('csat')">
+            <div class="card-top"><span class="tag">CSAT</span><span class="meta">5 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csat')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Customer Satisfaction Score</h3>
+            <p>Direct measurement of customer satisfaction with product or service.</p>
+            <div class="card-footer"><span>~1 min</span><span>5-point scale</span></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Generic -->
+      <div class="category">
+        <div class="category-header"><span class="num">05</span><h2>Generic Measures</h2></div>
+        <div class="cards grid-2">
+          <article class="card" onclick="go('learnability')">
+            <div class="card-top"><span class="tag">SRL</span><span class="meta">6 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('learnability')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Self-Reported Learnability</h3>
+            <p>Assesses how easily users can learn to use a system.</p>
+            <div class="card-footer"><span>~2 min</span><span>7-point Likert</span></div>
+          </article>
+          <article class="card" onclick="go('basic-ux')">
+            <div class="card-top"><span class="tag">BUX</span><span class="meta">8 items</span>
+              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('basic-ux')" title="Print questionnaire">⎙</button>
+            </div>
+            <h3>Basic UX Satisfaction Survey</h3>
+            <p>General-purpose UX satisfaction measure for quick assessments.</p>
+            <div class="card-footer"><span>~2 min</span><span>5-point Likert</span></div>
+          </article>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white/80 py-8">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-            <p class="text-sm">© 2026 UX Scale Labs. Open source under MIT License.</p>
-            <p class="text-xs mt-2 text-white/60">Not affiliated with the original scale authors or their institutions.</p>
+  <!-- Questionnaire -->
+  <main id="questionnaire-section" class="hidden">
+    <div class="container narrow">
+      <button onclick="showHome()" class="back-btn">← Back to Scales</button>
+      <header class="q-header">
+        <span id="q-abbr" class="tag-lg">SUS</span>
+        <h1 id="q-title">System Usability Scale</h1>
+      </header>
+      <p id="q-citation" class="citation"></p>
+      <div class="field">
+        <label for="system-name">System/Product Name <span>(optional)</span></label>
+        <input type="text" id="system-name" placeholder="e.g., Mobile Banking App v2.0">
+      </div>
+      <form id="questionnaire-form">
+        <div id="questions-container"></div>
+        <div class="form-actions">
+          <button type="button" onclick="resetForm()" class="btn-secondary">Reset</button>
+          <button type="submit" class="btn-primary">Calculate Results</button>
         </div>
-    </footer>
+      </form>
+    </div>
+  </main>
 
-    <script src="app.js"></script>
-    
+  <!-- Results -->
+  <main id="results-section" class="hidden">
+    <div class="container">
+      <button onclick="backToQuestionnaire()" class="back-btn">← Back to Questionnaire</button>
+      <h1 class="results-title">Results</h1>
+      <div class="results-grid">
+        <div class="score-card">
+          <div class="score-circle">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+              <circle id="score-progress" cx="60" cy="60" r="54" fill="none" stroke="var(--primary)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+            </svg>
+            <div class="score-value">
+              <span id="main-score">0</span>
+              <span id="score-max">/100</span>
+            </div>
+          </div>
+          <p id="score-label">Overall Score</p>
+        </div>
+        <div class="interp-card">
+          <h3>Interpretation</h3>
+          <p id="interpretation-text"></p>
+          <span id="grade-badge" class="grade"></span>
+        </div>
+      </div>
+      <div id="subscales-container" class="subscales-grid"></div>
+      <div class="responses-table">
+        <h3>Individual Responses</h3>
+        <table>
+          <thead><tr><th>Item</th><th>Question</th><th>Response</th><th>Adjusted</th></tr></thead>
+          <tbody id="responses-tbody"></tbody>
+        </table>
+      </div>
+      <div class="export-section">
+        <h3>Export Results</h3>
+        <div class="export-options">
+          <label><input type="checkbox" id="export-pdf" checked> PDF Report</label>
+          <label><input type="checkbox" id="export-csv" checked> CSV Data</label>
+          <label><input type="checkbox" id="export-txt" checked> Plain Text</label>
+        </div>
+        <div class="export-btns">
+          <button onclick="exportResults()" class="btn-primary">Download ZIP</button>
+          <button onclick="downloadPDF()" class="btn-secondary">PDF</button>
+          <button onclick="downloadTXT()" class="btn-secondary">Text</button>
+          <button onclick="downloadCSV()" class="btn-secondary">CSV</button>
+          <button onclick="sharePDF()" class="btn-secondary">Share</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About UX Scale Labs</h2>
+      <p class="about-desc">A collection of research-validated questionnaires for measuring user experience. All scoring algorithms are implemented according to their original academic publications.</p>
+      <div class="features">
+        <div class="feature">
+          <div class="icon">🔒</div>
+          <h4>Privacy First</h4>
+          <p>All processing happens in your browser. No data is ever sent to any server.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">✓</div>
+          <h4>Validated Algorithms</h4>
+          <p>Scoring methods from peer-reviewed academic publications.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">↓</div>
+          <h4>Multiple Exports</h4>
+          <p>Download results as PDF reports, CSV data, or plain text.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 UX Scale Labs. Open source under MIT License.</p>
+    <p class="small">Not affiliated with the original scale authors or their institutions.</p>
+  </footer>
+
+  <!-- Print Template (hidden) -->
+  <div id="print-template" class="print-only"></div>
+
+  <script src="app.js"></script>
 </body>
 </html>
