@@ -186,16 +186,6 @@ const QUESTIONNAIRES = {
       { id: 12, text: 'I would find this system easy to use.', r: false, sub: 'peou' }
     ]
   },
-  'nps': {
-    id: 'nps', abbr: 'NPS', name: 'Net Promoter Score',
-    citation: 'Reichheld, F.F. (2003)',
-    scaleMin: 0, scaleMax: 10, scoreMin: -100, scoreMax: 100,
-    labels: ['Not at all likely', 'Extremely likely'],
-    isNPS: true,
-    questions: [
-      { id: 1, text: 'How likely are you to recommend this product/service to a friend or colleague?', r: false }
-    ]
-  },
   'csat': {
     id: 'csat', abbr: 'CSAT', name: 'Customer Satisfaction Score',
     citation: 'Industry Standard',
@@ -279,16 +269,6 @@ const SCORING = {
       overall: Math.round(score * 10) / 10,
       interpretation: score >= 80 ? 'Excellent usability.' : score >= 68 ? 'Good usability.' : score >= 50 ? 'Acceptable.' : 'Poor usability.',
       grade: score >= 80 ? 'A' : score >= 68 ? 'B' : score >= 50 ? 'C' : 'D'
-    };
-  },
-  nps(resp) {
-    const val = resp[1];
-    const category = val >= 9 ? 'Promoter' : val >= 7 ? 'Passive' : 'Detractor';
-    const score = val >= 9 ? 100 : val >= 7 ? 0 : -100;
-    return {
-      overall: score, rawScore: val, category,
-      interpretation: val >= 9 ? 'Promoter: Loyal enthusiast who will recommend.' : val >= 7 ? 'Passive: Satisfied but vulnerable to competitors.' : 'Detractor: Unhappy, may damage brand.',
-      grade: category
     };
   },
   csat(resp, q) {
@@ -400,7 +380,7 @@ function renderQuestions() {
         <span class="q-num">Q${q.id}</span>
         <p>${q.text}${q.r ? ' <span class="rev">(reverse-scored)</span>' : ''}</p>
       </div>
-      ${currentQ.isNPS ? renderNPS(q) : renderLikert(q)}
+      ${renderLikert(q)}
     `;
     container.appendChild(div);
   });
@@ -418,21 +398,6 @@ function renderLikert(q) {
   return `
     <div class="scale-labels"><span>${labels[0]}</span><span>${labels[1]}</span></div>
     <div class="likert" style="grid-template-columns: repeat(${scaleMax - scaleMin + 1}, 1fr);">${opts}</div>
-  `;
-}
-
-function renderNPS(q) {
-  let opts = '';
-  for (let i = 0; i <= 10; i++) {
-    const type = i >= 9 ? 'promoter' : i >= 7 ? 'passive' : 'detractor';
-    opts += `<div class="nps-opt ${type}">
-      <input type="radio" name="q${q.id}" id="q${q.id}_${i}" value="${i}" onchange="handleResponse(${q.id}, ${i})">
-      <label for="q${q.id}_${i}">${i}</label>
-    </div>`;
-  }
-  return `
-    <div class="nps">${opts}</div>
-    <div class="scale-labels" style="margin-top:0.5rem"><span>Not at all likely</span><span>Extremely likely</span></div>
   `;
 }
 
@@ -465,17 +430,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function displayResults() {
   $('main-score').textContent = results.overall;
-  $('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : currentQ.isNPS ? '' : '/' + currentQ.scoreMax;
-  $('score-label').textContent = currentQ.isNPS ? results.category : 'Overall Score';
+  $('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax;
+  $('score-label').textContent = 'Overall Score';
   $('interpretation-text').textContent = results.interpretation;
   $('grade-badge').textContent = 'Grade: ' + results.grade;
 
   // Animate score circle
   const progress = $('score-progress');
   const circumference = 339.292;
-  let pct = currentQ.isNPS ? (results.overall + 100) / 200 :
-            currentQ.scoreMax === 100 ? results.overall / 100 :
-            (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
+  let pct = currentQ.scoreMax === 100 ? results.overall / 100 :
+    (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
   setTimeout(() => { progress.style.strokeDashoffset = circumference - (pct * circumference); }, 100);
 
   // Subscales
@@ -656,13 +620,9 @@ function printQuestionnaire(id) {
 
   q.questions.forEach(item => {
     html += `<div class="print-q"><div class="print-q-text"><span>${item.id}.</span><p>${item.text}</p></div>`;
-    if (q.isNPS) {
-      html += `<div class="print-nps">${[...Array(11)].map((_, i) => `<div class="box">${i}</div>`).join('')}</div>`;
-    } else {
-      const boxes = [];
-      for (let i = q.scaleMin; i <= q.scaleMax; i++) boxes.push(`<div class="box">${i}</div>`);
-      html += `<div class="print-scale"><span>${q.labels[0]}</span><div class="boxes">${boxes.join('')}</div><span>${q.labels[1]}</span></div>`;
-    }
+    const boxes = [];
+    for (let i = q.scaleMin; i <= q.scaleMax; i++) boxes.push(`<div class="box">${i}</div>`);
+    html += `<div class="print-scale"><span>${q.labels[0]}</span><div class="boxes">${boxes.join('')}</div><span>${q.labels[1]}</span></div>`;
     html += `</div>`;
   });
 
