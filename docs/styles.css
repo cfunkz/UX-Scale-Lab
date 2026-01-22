@@ -1,0 +1,209 @@
+.scale-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;    /* xl */
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.scale-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(26, 54, 93, 0.25); /* primary w/ alpha */
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.12);
+}
+
+/* Question cards created dynamically in app.js */
+.question-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.question-card:hover {
+  border-color: rgba(44, 82, 130, 0.25); /* secondary w/ alpha */
+  box-shadow: 0 8px 25px -10px rgba(0, 0, 0, 0.10);
+}
+
+/* App.js toggles this class when a question is answered */
+.question-answered {
+  border-color: #2c5282 !important; /* secondary */
+  background: #f0f5ff; /* subtle blue tint */
+}
+
+/* ---------------------------------------
+   Likert options (1..5 / 1..7)
+---------------------------------------- */
+
+.likert-option input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.likert-option label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  min-width: 2.5rem;
+
+  background: #ffffff;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem;
+
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.875rem;
+  color: #374151; /* gray-700 */
+
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.likert-option label:hover {
+  background: #f9fafb;       /* gray-50 */
+  border-color: #9ca3af;     /* gray-400 */
+}
+
+.likert-option input[type="radio"]:checked + label {
+  background: #1a365d;       /* primary */
+  border-color: #1a365d;     /* primary */
+  color: #ffffff;
+  box-shadow: 0 8px 18px -12px rgba(26, 54, 93, 0.55);
+}
+
+/* Keyboard focus (accessibility) */
+.likert-option input[type="radio"]:focus-visible + label {
+  outline: 2px solid rgba(26, 54, 93, 0.35);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------
+   NPS options
+---------------------------------------- */
+
+.nps-option input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nps-option label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+
+  background: #ffffff;
+  border: 1px solid #d1d5db; /* gray-300 */
+  border-radius: 0.5rem;
+
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: #374151; /* gray-700 */
+
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (min-width: 640px) {
+  .nps-option label {
+    height: 2.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+.nps-option label:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.nps-option.detractor input[type="radio"]:checked + label {
+  background: #c53030;
+  border-color: #c53030;
+  color: #ffffff;
+}
+.nps-option.passive input[type="radio"]:checked + label {
+  background: #d69e2e;
+  border-color: #d69e2e;
+  color: #ffffff;
+}
+.nps-option.promoter input[type="radio"]:checked + label {
+  background: #2f855a;
+  border-color: #2f855a;
+  color: #ffffff;
+}
+
+.nps-option input[type="radio"]:focus-visible + label {
+  outline: 2px solid rgba(26, 54, 93, 0.35);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------
+   Subscales
+---------------------------------------- */
+
+.subscale-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.subscale-bar {
+  height: 4px;
+  border-radius: 9999px;
+  background: #e5e7eb; /* gray-200 */
+  overflow: hidden;
+}
+
+.subscale-fill {
+  height: 100%;
+  background: rgba(183, 121, 31, 0.75); /* accent */
+  border-radius: 9999px;
+  transition: width 0.7s ease;
+}
+
+#score-progress {
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f3f4f6; /* gray-100 */
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db; /* gray-300 */
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* gray-400 */
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
