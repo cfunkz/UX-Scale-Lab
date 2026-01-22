@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <b>Research-grade UX questionnaires with validated scoring — fully client-side.</b><br/>
+  <b>Research-grade UX questionnaires with validated scoring.</b><br/>
   13 scientifically validated instruments • Automatic scoring • PDF/CSV/TXT export • Shareable scale routes
 </p>
 
