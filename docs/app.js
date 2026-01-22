@@ -337,34 +337,30 @@ const SCORING = {
 // State
 let currentQ = null, responses = {}, results = null;
 
+// Helpers
+const $ = id => document.getElementById(id);
+const scrollTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
+
 // Navigation
-function showHome() {
-  document.getElementById('home-section').classList.remove('hidden');
-  document.getElementById('questionnaire-section').classList.add('hidden');
-  document.getElementById('results-section').classList.add('hidden');
+function showSection(section) {
+  ['home', 'questionnaire', 'results'].forEach(s => {
+    $(`${s}-section`).classList.toggle('hidden', s !== section);
+  });
+  scrollTop();
 }
 
-function showQuestionnaire() {
-  document.getElementById('home-section').classList.add('hidden');
-  document.getElementById('questionnaire-section').classList.remove('hidden');
-  document.getElementById('results-section').classList.add('hidden');
-}
-
-function showResults() {
-  document.getElementById('home-section').classList.add('hidden');
-  document.getElementById('questionnaire-section').classList.add('hidden');
-  document.getElementById('results-section').classList.remove('hidden');
-}
-
-function backToQuestionnaire() { showQuestionnaire(); }
+const showHome = () => showSection('home');
+const showQuestionnaire = () => showSection('questionnaire');
+const showResults = () => showSection('results');
+const backToQuestionnaire = () => showQuestionnaire();
 
 function loadQuestionnaire(id) {
   currentQ = QUESTIONNAIRES[id];
   responses = {};
-  document.getElementById('q-abbr').textContent = currentQ.abbr;
-  document.getElementById('q-title').textContent = currentQ.name;
-  document.getElementById('q-citation').textContent = currentQ.citation;
-  document.getElementById('system-name').value = '';
+  $('q-abbr').textContent = currentQ.abbr;
+  $('q-title').textContent = currentQ.name;
+  $('q-citation').textContent = currentQ.citation;
+  $('system-name').value = '';
   renderQuestions();
   showQuestionnaire();
 }
@@ -382,14 +378,18 @@ function applyRoute() {
   const id = route();
   if (id && QUESTIONNAIRES[id]) loadQuestionnaire(id);
   else showHome();
+  scrollTop();
 }
 
 addEventListener('hashchange', applyRoute);
-addEventListener('DOMContentLoaded', applyRoute);
+addEventListener('DOMContentLoaded', () => {
+  scrollTop();
+  applyRoute();
+});
 
 // Render Questions
 function renderQuestions() {
-  const container = document.getElementById('questions-container');
+  const container = $('questions-container');
   container.innerHTML = '';
   currentQ.questions.forEach(q => {
     const div = document.createElement('div');
@@ -408,7 +408,6 @@ function renderQuestions() {
 
 function renderLikert(q) {
   const { scaleMin, scaleMax, labels } = currentQ;
-  const cols = scaleMax - scaleMin + 1;
   let opts = '';
   for (let i = scaleMin; i <= scaleMax; i++) {
     opts += `<div class="likert-opt">
@@ -418,7 +417,7 @@ function renderLikert(q) {
   }
   return `
     <div class="scale-labels"><span>${labels[0]}</span><span>${labels[1]}</span></div>
-    <div class="likert" style="grid-template-columns: repeat(${cols}, 1fr);">${opts}</div>
+    <div class="likert" style="grid-template-columns: repeat(${scaleMax - scaleMin + 1}, 1fr);">${opts}</div>
   `;
 }
 
@@ -439,23 +438,23 @@ function renderNPS(q) {
 
 function handleResponse(qId, val) {
   responses[qId] = val;
-  document.getElementById('question-' + qId).classList.add('answered');
+  $('question-' + qId).classList.add('answered');
 }
 
 function resetForm() {
   responses = {};
   document.querySelectorAll('#questionnaire-form input[type="radio"]').forEach(r => r.checked = false);
   document.querySelectorAll('[id^="question-"]').forEach(q => q.classList.remove('answered'));
-  document.getElementById('system-name').value = '';
+  $('system-name').value = '';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('questionnaire-form');
+  const form = $('questionnaire-form');
   if (form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
       if (Object.keys(responses).length < currentQ.questions.length) {
-        alert('Please answer all ' + currentQ.questions.length + ' questions.');
+        alert(`Please answer all ${currentQ.questions.length} questions.`);
         return;
       }
       results = SCORING.calculate(currentQ.id, responses, currentQ);
@@ -465,67 +464,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function displayResults() {
-  document.getElementById('main-score').textContent = results.overall;
-  document.getElementById('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : currentQ.isNPS ? '' : '/' + currentQ.scoreMax;
-  document.getElementById('score-label').textContent = currentQ.isNPS ? results.category : 'Overall Score';
-  document.getElementById('interpretation-text').textContent = results.interpretation;
-  document.getElementById('grade-badge').textContent = 'Grade: ' + results.grade;
+  $('main-score').textContent = results.overall;
+  $('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : currentQ.isNPS ? '' : '/' + currentQ.scoreMax;
+  $('score-label').textContent = currentQ.isNPS ? results.category : 'Overall Score';
+  $('interpretation-text').textContent = results.interpretation;
+  $('grade-badge').textContent = 'Grade: ' + results.grade;
 
-  // Animate score
-  const progress = document.getElementById('score-progress');
+  // Animate score circle
+  const progress = $('score-progress');
   const circumference = 339.292;
-  let pct;
-  if (currentQ.isNPS) pct = (results.overall + 100) / 200;
-  else if (currentQ.scoreMax === 100) pct = results.overall / 100;
-  else pct = (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
+  let pct = currentQ.isNPS ? (results.overall + 100) / 200 :
+            currentQ.scoreMax === 100 ? results.overall / 100 :
+            (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
   setTimeout(() => { progress.style.strokeDashoffset = circumference - (pct * circumference); }, 100);
 
   // Subscales
-  const subContainer = document.getElementById('subscales-container');
+  const subContainer = $('subscales-container');
   subContainer.innerHTML = '';
   if (results.subscales && Object.keys(results.subscales).length) {
-    Object.keys(results.subscales).forEach(key => {
-      const s = results.subscales[key];
-      const pctBar = (s.score / s.max) * 100;
+    Object.entries(results.subscales).forEach(([_, s]) => {
       subContainer.innerHTML += `
         <div class="subscale-card">
           <p>${s.name}</p>
           <p class="score">${s.score}<span>/${s.max}</span></p>
-          <div class="subscale-bar"><div class="subscale-fill" style="width:${pctBar}%"></div></div>
+          <div class="subscale-bar"><div class="subscale-fill" style="width:${(s.score / s.max) * 100}%"></div></div>
         </div>
       `;
     });
   }
 
   // Table
-  const tbody = document.getElementById('responses-tbody');
-  tbody.innerHTML = '';
-  currentQ.questions.forEach(q => {
+  const tbody = $('responses-tbody');
+  tbody.innerHTML = currentQ.questions.map(q => {
     const resp = responses[q.id];
     const adj = currentQ.id === 'sus' ? (q.r ? 5 - resp : resp - 1) : '-';
-    tbody.innerHTML += `<tr>
-      <td>Q${q.id}</td>
-      <td>${q.text}${q.r ? ' <em>(R)</em>' : ''}</td>
-      <td>${resp}</td>
-      <td>${adj}</td>
-    </tr>`;
-  });
+    return `<tr><td>Q${q.id}</td><td>${q.text}${q.r ? ' <em>(R)</em>' : ''}</td><td>${resp}</td><td>${adj}</td></tr>`;
+  }).join('');
 
   showResults();
 }
 
 // Export Functions
 const stamp = () => new Date().toISOString().slice(0, 10);
-const sysName = () => document.getElementById('system-name').value || 'Unnamed System';
+const sysName = () => $('system-name').value || 'Unnamed System';
 const baseName = () => `${currentQ.abbr}_Results_${stamp()}`;
 
 function saveBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
+  a.href = URL.createObjectURL(blob);
   a.download = filename;
   a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 0);
+  URL.revokeObjectURL(a.href);
 }
 
 async function downloadPDF() { saveBlob(await generatePDF(sysName()), baseName() + '.pdf'); }
@@ -542,12 +531,16 @@ async function sharePDF() {
 }
 
 async function exportResults() {
+  const pdf = $('export-pdf').checked;
+  const csv = $('export-csv').checked;
+  const txt = $('export-txt').checked;
+  if (!pdf && !csv && !txt) return alert('Select at least one format for ZIP export.');
   const zip = new JSZip();
   const base = baseName();
   const system = sysName();
-  zip.file(base + '.pdf', await generatePDF(system));
-  zip.file(base + '.csv', generateCSV(system));
-  zip.file(base + '.txt', generateTXT(system));
+  if (pdf) zip.file(base + '.pdf', await generatePDF(system));
+  if (csv) zip.file(base + '.csv', generateCSV(system));
+  if (txt) zip.file(base + '.txt', generateTXT(system));
   saveBlob(await zip.generateAsync({ type: 'blob' }), base + '.zip');
 }
 
@@ -640,12 +633,11 @@ function generateTXT(systemName) {
   return lines.join('\n');
 }
 
-// Print Questionnaire Function
+// Print Questionnaire
 function printQuestionnaire(id) {
   const q = QUESTIONNAIRES[id];
   if (!q) return;
 
-  const template = document.getElementById('print-template');
   let html = `
     <div class="print-page">
       <div class="print-header">
@@ -663,44 +655,20 @@ function printQuestionnaire(id) {
   `;
 
   q.questions.forEach(item => {
-    html += `<div class="print-q">
-      <div class="print-q-text">
-        <span>${item.id}.</span>
-        <p>${item.text}</p>
-      </div>`;
-
+    html += `<div class="print-q"><div class="print-q-text"><span>${item.id}.</span><p>${item.text}</p></div>`;
     if (q.isNPS) {
-      html += `<div class="print-nps">`;
-      for (let i = 0; i <= 10; i++) {
-        html += `<div class="box">${i}</div>`;
-      }
-      html += `</div>`;
+      html += `<div class="print-nps">${[...Array(11)].map((_, i) => `<div class="box">${i}</div>`).join('')}</div>`;
     } else {
-      html += `<div class="print-scale">
-        <span>${q.labels[0]}</span>
-        <div class="boxes">`;
-      for (let i = q.scaleMin; i <= q.scaleMax; i++) {
-        html += `<div class="box">${i}</div>`;
-      }
-      html += `</div>
-        <span>${q.labels[1]}</span>
-      </div>`;
+      const boxes = [];
+      for (let i = q.scaleMin; i <= q.scaleMax; i++) boxes.push(`<div class="box">${i}</div>`);
+      html += `<div class="print-scale"><span>${q.labels[0]}</span><div class="boxes">${boxes.join('')}</div><span>${q.labels[1]}</span></div>`;
     }
     html += `</div>`;
   });
 
-  html += `
-      <div class="print-footer">
-        Generated by UX Scale Labs • uxscalelabs.online
-      </div>
-    </div>
-  `;
-
-  template.innerHTML = html;
-
-  // Open print dialog
+  html += `<div class="print-footer">Generated by UX Scale Labs • uxscalelabs.online</div></div>`;
+  
+  $('print-template').innerHTML = html;
   window.print();
-
-  // Clear after print
-  setTimeout(() => { template.innerHTML = ''; }, 1000);
+  setTimeout(() => { $('print-template').innerHTML = ''; }, 1000);
 }
