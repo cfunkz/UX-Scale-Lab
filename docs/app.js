@@ -612,7 +612,7 @@ function generatePDF(systemName) {
     doc.text('UX Scale Labs', 20, 18);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text('Research-Grade Questionnaire Results', 20, 26);
+    doc.text('Questionnaire Results', 20, 26);
     doc.text('Generated: ' + new Date().toLocaleDateString(), 20, 34);
     y = 55;
     doc.setTextColor(26, 54, 93);
