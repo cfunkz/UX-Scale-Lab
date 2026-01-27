@@ -51,11 +51,10 @@
 </head>
 <body>
   <script>
-    // send the user into your existing SPA state
-    location.replace("/?q=use");
+    // tell the SPA which questionnaire to open when app.js loads
+    window.__ROUTE_ID__ = "use";
   </script>
-  <noscript>
-    <p>This page requires JavaScript. Go to <a href="/?q=use">USE questionnaire</a>.</p>
-  </noscript>
+
+  <script src="/app.js"></script>
 </body>
 </html>

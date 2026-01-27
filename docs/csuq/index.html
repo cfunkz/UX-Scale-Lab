@@ -51,10 +51,10 @@
 </head>
 <body>
   <script>
-    location.replace("/?q=csuq");
+    // tell the SPA which questionnaire to open when app.js loads
+    window.__ROUTE_ID__ = "csuq";
   </script>
-  <noscript>
-    <p>This page requires JavaScript. Go to <a href="/?q=csuq">CSUQ questionnaire</a>.</p>
-  </noscript>
+
+  <script src="/app.js"></script>
 </body>
 </html>

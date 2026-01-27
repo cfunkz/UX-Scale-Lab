@@ -27,8 +27,8 @@
         "publisher": { "@id": "https://uxscalelabs.online/#org" }
       },
       {
-        "@type": "BreadcrumbList",
-        "@id": "https://uxscalelabs.online/umux/#breadcrumbs",
+        "@type": "BreadcrumbList",  
+        "@id": "https://uxscalelabs.online/asq/#breadcrumbs",
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -50,10 +50,11 @@
 </head>
 <body>
   <script>
-    location.replace("/?q=asq");
+    // tell the SPA which questionnaire to open when app.js loads
+    window.__ROUTE_ID__ = "asq";
   </script>
-  <noscript>
-    <p>This page requires JavaScript. Go to <a href="/?q=asq">ASQ questionnaire</a>.</p>
-  </noscript>
+
+  <script src="/app.js"></script>
 </body>
+
 </html>

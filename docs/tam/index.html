@@ -51,10 +51,10 @@
 </head>
 <body>
   <script>
-    location.replace("/?q=tam");
+    // tell the SPA which questionnaire to open when app.js loads
+    window.__ROUTE_ID__ = "tam";
   </script>
-  <noscript>
-    <p>This page requires JavaScript. Go to <a href="/?q=tam">TAM questionnaire</a>.</p>
-  </noscript>
+
+  <script src="/app.js"></script>
 </body>
 </html>

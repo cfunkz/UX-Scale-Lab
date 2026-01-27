@@ -51,10 +51,10 @@
 </head>
 <body>
   <script>
-    location.replace("/?q=seq");
+    // tell the SPA which questionnaire to open when app.js loads
+    window.__ROUTE_ID__ = "seq";
   </script>
-  <noscript>
-    <p>This page requires JavaScript. Go to <a href="/?q=seq">SEQ questionnaire</a>.</p>
-  </noscript>
+
+  <script src="/app.js"></script>
 </body>
 </html>
