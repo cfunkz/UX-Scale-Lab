@@ -50,10 +50,12 @@
 </head>
 <body>
   <script>
-    // tell the SPA which questionnaire to open when app.js loads
-    window.__ROUTE_ID__ = "csat";
+    // keep the URL pretty, but run the SPA
+    location.replace("/?q=csat");
   </script>
 
-  <script src="/app.js"></script>
+  <noscript>
+    <p>This page requires JavaScript. Go to <a href="/?q=csat">CSAT questionnaire</a>.</p>
+  </noscript>
 </body>
 </html>

@@ -386,18 +386,16 @@ function loadQuestionnaire(id) {
 // Also supports a loose format if you really want: /?sus
 // (i.e. param key with no value)
 function getRouteId() {
-  // 1) Prefer clean path: /sus/, /asq/, etc.
-  // normalize: "/asq/" -> "asq"
-  const path = location.pathname.replace(/^\/+|\/+$/g, ''); // trim leading/trailing slashes
-  if (path && QUESTIONNAIRES[path]) return path;
-
-  // 2) fallback to explicit override if set by subpage index.html
-  if (window.__ROUTE_ID__ && QUESTIONNAIRES[window.__ROUTE_ID__]) return window.__ROUTE_ID__;
-
-  // 3) fallback to query string: ?q=asq
   const params = new URLSearchParams(location.search);
+
+  // Normal: ?q=sus
   const q = (params.get('q') || '').trim().toLowerCase();
-  if (q && QUESTIONNAIRES[q]) return q;
+  if (q) return q;
+
+  // Loose: ?sus (key exists, value empty)
+  for (const [key, val] of params.entries()) {
+    if (key && !val) return key.toLowerCase();
+  }
 
   return '';
 }
@@ -405,13 +403,12 @@ function getRouteId() {
 function setRoute(id = '') {
   const url = new URL(location.href);
 
-  // clear query
+  // Clear existing query
   url.search = '';
 
   if (id) {
-    url.pathname = `/${id}/`;   // <— clean route
-  } else {
-    url.pathname = `/`;
+    // Primary format: ?q=sus
+    url.searchParams.set('q', id);
   }
 
   history.pushState({}, '', url);

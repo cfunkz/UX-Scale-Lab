@@ -51,10 +51,12 @@
 </head>
 <body>
   <script>
-    // tell the SPA which questionnaire to open when app.js loads
-    window.__ROUTE_ID__ = "sus";
+    // keep the URL pretty, but run the SPA
+    location.replace("/?q=sus");
   </script>
 
-  <script src="/app.js"></script>
+  <noscript>
+    <p>This page requires JavaScript. Go to <a href="/?q=sus">SUS questionnaire</a>.</p>
+  </noscript>
 </body>
 </html>
