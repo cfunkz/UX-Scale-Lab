@@ -347,50 +347,128 @@ let currentQ = null, responses = {}, results = null;
 const $ = id => document.getElementById(id);
 const scrollTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
 
-// Navigation
-function showSection(section) {
+// Sections
+function showSection(section, { scroll = true } = {}) {
   ['home', 'questionnaire', 'results'].forEach(s => {
     $(`${s}-section`).classList.toggle('hidden', s !== section);
   });
-  scrollTop();
+  if (scroll) scrollTop();
 }
 
-const showHome = () => showSection('home');
-const showQuestionnaire = () => showSection('questionnaire');
-const showResults = () => showSection('results');
+const showHome = (opts) => showSection('home', opts);
+const showQuestionnaire = (opts) => showSection('questionnaire', opts);
+const showResults = (opts) => showSection('results', opts);
 const backToQuestionnaire = () => showQuestionnaire();
 
+// Questionnaire load
 function loadQuestionnaire(id) {
   currentQ = QUESTIONNAIRES[id];
   responses = {};
+  results = null;
+
   $('q-abbr').textContent = currentQ.abbr;
   $('q-title').textContent = currentQ.name;
   $('q-citation').textContent = currentQ.citation;
   $('system-name').value = '';
+
   renderQuestions();
   showQuestionnaire();
 }
 
-// Routing
-const route = () => (location.hash.replace(/^#\/?/, '').split('?')[0] || '').toLowerCase();
+// --------------------
+// Query-string routing
+// --------------------
+// Supports:
+//   /                -> home
+//   /?q=sus          -> questionnaire for sus
+//   /?q=umux-lite    -> questionnaire for umux-lite
+//
+// Also supports a loose format if you really want: /?sus
+// (i.e. param key with no value)
+function getRouteId() {
+  const params = new URLSearchParams(location.search);
 
-function go(path = '') {
-  const next = `#/${path}`;
-  if (location.hash === next) applyRoute();
-  else location.hash = next;
+  // Normal: ?q=sus
+  const q = (params.get('q') || '').trim().toLowerCase();
+  if (q) return q;
+
+  // Loose: ?sus (key exists, value empty)
+  for (const [key, val] of params.entries()) {
+    if (key && !val) return key.toLowerCase();
+  }
+
+  return '';
+}
+
+function setRoute(id = '') {
+  const url = new URL(location.href);
+
+  // Clear existing query
+  url.search = '';
+
+  if (id) {
+    // Primary format: ?q=sus
+    url.searchParams.set('q', id);
+  }
+
+  history.pushState({}, '', url);
+  applyRoute();
 }
 
 function applyRoute() {
-  const id = route();
-  if (id && QUESTIONNAIRES[id]) loadQuestionnaire(id);
-  else showHome();
-  scrollTop();
+  const id = getRouteId();
+
+  if (id && QUESTIONNAIRES[id]) {
+    loadQuestionnaire(id);
+    return;
+  }
+
+  // Home view (don’t force scroll if user used an anchor link)
+  showHome();
 }
 
-addEventListener('hashchange', applyRoute);
+// Navigation actions helpers
+function go(id = '') {
+  setRoute(id);
+}
+function goHome() {
+  setRoute('');
+}
+
+// About should always work, regardless of current view
+function goAbout() {
+  // Ensure home is visible, then scroll to #about
+  setRoute('');           // clears ?q=
+  showHome({ scroll: false });
+
+  // let layout update before scrolling
+  requestAnimationFrame(() => {
+    const el = document.getElementById('about');
+    if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+}
+
+// Back/forward support
+addEventListener('popstate', applyRoute);
+
+// Initial load
 addEventListener('DOMContentLoaded', () => {
-  scrollTop();
   applyRoute();
+
+  // Form submit (kept as-is)
+  const form = $('questionnaire-form');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (!currentQ) return alert('No questionnaire loaded.');
+      if (Object.keys(responses).length < currentQ.questions.length) {
+        alert(`Please answer all ${currentQ.questions.length} questions.`);
+        return;
+      }
+      results = SCORING.calculate(currentQ.id, responses, currentQ);
+      displayResults();
+    });
+  }
 });
 
 // Render Questions
@@ -439,22 +517,9 @@ function resetForm() {
   $('system-name').value = '';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const form = $('questionnaire-form');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      if (Object.keys(responses).length < currentQ.questions.length) {
-        alert(`Please answer all ${currentQ.questions.length} questions.`);
-        return;
-      }
-      results = SCORING.calculate(currentQ.id, responses, currentQ);
-      displayResults();
-    });
-  }
-});
-
 function displayResults() {
+  if (!results || !currentQ) return;
+
   $('main-score').textContent = results.overall;
   $('score-max').textContent = currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax;
   $('score-label').textContent = 'Overall Score';
@@ -483,7 +548,7 @@ function displayResults() {
     });
   }
 
-  // Table
+  // Table (SUS adjusted is contribution 0..4, but kept your label)
   const tbody = $('responses-tbody');
   tbody.innerHTML = currentQ.questions.map(q => {
     const resp = responses[q.id];
