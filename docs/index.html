@@ -35,15 +35,15 @@
 <body>
   <header class="header">
     <div class="container header-inner">
-      <a href="#" onclick="showHome(); return false;" class="logo">
+      <a href="/" onclick="goHome(); return false;" class="logo">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
         </svg>
         <span>UX Scale Labs</span>
       </a>
       <nav>
-        <a href="#" onclick="showHome(); return false;">Scales</a>
-        <a href="#about">About</a>
+        <a href="/" onclick="goHome(); return false;">Homepage</a>
+        <a href="/#about" onclick="goAbout(); return false;">About</a>
       </nav>
     </div>
   </header>
@@ -52,7 +52,7 @@
   <main id="home-section">
     <section class="hero container">
       <span class="badge">12 Questionnaires</span>
-      <h1>Measure User Experience<br><em>with Precision</em></h1>
+      <h1>Measure User Experience<br><em>with Ease</em></h1>
       <p>UX questionnaires with scoring algorithms. Export as PDF, CSV, or TXT. All data stays in your browser.</p>
     </section>
 
@@ -69,6 +69,7 @@
             <p>The industry standard for measuring perceived usability. Yields a score from 0-100.</p>
             <div class="card-footer"><span>~3 min</span><span>5-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('umux')">
             <div class="card-top"><span class="tag">UMUX</span><span class="meta">4 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux')" title="Print questionnaire">⎙</button>
@@ -77,6 +78,7 @@
             <p>A compact alternative to SUS with comparable reliability and validity.</p>
             <div class="card-footer"><span>~1 min</span><span>7-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('umux-lite')">
             <div class="card-top"><span class="tag">UMUX-L</span><span class="meta">2 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux-lite')" title="Print questionnaire">⎙</button>
@@ -85,6 +87,7 @@
             <p>Ultra-short usability measure for minimal participant burden.</p>
             <div class="card-footer"><span>~30 sec</span><span>7-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('csuq')">
             <div class="card-top"><span class="tag">CSUQ</span><span class="meta">16 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csuq')" title="Print questionnaire">⎙</button>
@@ -93,6 +96,7 @@
             <p>IBM's comprehensive measure with subscales for system and interface quality.</p>
             <div class="card-footer"><span>~5 min</span><span>7-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('pssuq')">
             <div class="card-top"><span class="tag">PSSUQ</span><span class="meta">16 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('pssuq')" title="Print questionnaire">⎙</button>
@@ -116,6 +120,7 @@
             <p>Quick task difficulty assessment after each task completion.</p>
             <div class="card-footer"><span>~10 sec</span><span>7-point scale</span></div>
           </article>
+
           <article class="card" onclick="go('asq')">
             <div class="card-top"><span class="tag">ASQ</span><span class="meta">3 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('asq')" title="Print questionnaire">⎙</button>
@@ -139,6 +144,7 @@
             <p>Evaluates Usefulness, Satisfaction, and Ease of Use with four subscales.</p>
             <div class="card-footer"><span>~8 min</span><span>7-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('tam')">
             <div class="card-top"><span class="tag">TAM</span><span class="meta">12 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('tam')" title="Print questionnaire">⎙</button>
@@ -177,6 +183,7 @@
             <p>Assesses how easily users can learn to use a system.</p>
             <div class="card-footer"><span>~2 min</span><span>7-point Likert</span></div>
           </article>
+
           <article class="card" onclick="go('basic-ux')">
             <div class="card-top"><span class="tag">BUX</span><span class="meta">8 items</span>
               <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('basic-ux')" title="Print questionnaire">⎙</button>
@@ -193,7 +200,7 @@
   <!-- Questionnaire -->
   <main id="questionnaire-section" class="hidden">
     <div class="container narrow">
-      <button onclick="showHome()" class="back-btn">← Back to Scales</button>
+      <button onclick="goHome()" class="back-btn">← Back to Scales</button>
       <header class="q-header">
         <span id="q-abbr" class="tag-lg">SUS</span>
         <h1 id="q-title">System Usability Scale</h1>
@@ -238,7 +245,9 @@
           <span id="grade-badge" class="grade"></span>
         </div>
       </div>
+
       <div id="subscales-container" class="subscales-grid"></div>
+
       <div class="responses-table">
         <h3>Individual Responses</h3>
         <table>
@@ -246,30 +255,31 @@
           <tbody id="responses-tbody"></tbody>
         </table>
       </div>
-        <div class="export-section">
-            <h3>Export Results</h3>
 
-            <div class="export-row">
-                <div class="export-left">
-                <button class="export-zip" onclick="exportResults()" title="Download a ZIP with selected formats">
-                    🗜️ <span>ZIP</span>
-                </button>
-                </div>
+      <div class="export-section">
+        <h3>Export Results</h3>
 
-                <div class="export-toggles" aria-label="ZIP bundle formats">
-                <label><input type="checkbox" id="export-pdf" checked> PDF</label>
-                <label><input type="checkbox" id="export-csv" checked> CSV</label>
-                <label><input type="checkbox" id="export-txt" checked> TXT</label>
-                </div>
-            </div>
+        <div class="export-row">
+          <div class="export-left">
+            <button class="export-zip" onclick="exportResults()" title="Download a ZIP with selected formats">
+              🗜️ <span>ZIP</span>
+            </button>
+          </div>
 
-            <div class="export-btns">
-                <button class="btn-primary" onclick="downloadPDF()">📄 PDF</button>
-                <button onclick="downloadCSV()">🧾 CSV</button>
-                <button onclick="downloadTXT()">📝 TEXT</button>
-                <button class="btn-ghost" onclick="sharePDF()">🔗 SHARE</button>
-            </div>
+          <div class="export-toggles" aria-label="ZIP bundle formats">
+            <label><input type="checkbox" id="export-pdf" checked> PDF</label>
+            <label><input type="checkbox" id="export-csv" checked> CSV</label>
+            <label><input type="checkbox" id="export-txt" checked> TXT</label>
+          </div>
         </div>
+
+        <div class="export-btns">
+          <button class="btn-primary" onclick="downloadPDF()">📄 PDF</button>
+          <button class="btn-primary" onclick="downloadCSV()">🧾 CSV</button>
+          <button class="btn-primary" onclick="downloadTXT()">📝 TEXT</button>
+          <button class="btn-primary" onclick="sharePDF()">🔗 SHARE</button>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -303,7 +313,6 @@
     <p class="small">Not affiliated with the original scale authors or their institutions.</p>
   </footer>
 
-  <!-- Print Template (hidden) -->
   <div id="print-template" class="print-only"></div>
 
   <script src="app.js"></script>
