@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UX Scale Labs | Research Questionnaires</title>
-  <link rel="icon" href="./favicon.ico?v=2">
+  <link rel="icon" href="/favicon.ico">
   <meta name="description" content="User experience (UX) questionnaires with scoring algorithms. Includes SUS, UMUX, CSUQ and more. Instant scoring and exports.">
   <link rel="canonical" href="https://uxscalelabs.online/">
   <meta name="robots" content="index,follow">
@@ -160,13 +160,15 @@
       <div class="category">
         <div class="category-header"><span class="num">04</span><h2>Satisfaction & Loyalty</h2></div>
         <div class="cards grid-2">
-          <article class="card" onclick="go('csat')">
-            <div class="card-top"><span class="tag">CSAT</span><span class="meta">5 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csat')" title="Print questionnaire">⎙</button>
-            </div>
-            <h3>Customer Satisfaction Score</h3>
-            <p>Direct measurement of customer satisfaction with product or service.</p>
-            <div class="card-footer"><span>~1 min</span><span>5-point scale</span></div>
+          <article class="card">
+            <a href="/csat/" onclick="go('csat'); return false;" style="text-decoration:none; color:inherit; display:block;">
+              <div class="card-top"><span class="tag">CSAT</span><span class="meta">5 items</span>
+                <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csat')" title="Print questionnaire">⎙</button>
+              </div>
+              <h3>Customer Satisfaction Score</h3>
+              <p>Direct measurement of customer satisfaction with product or service.</p>
+              <div class="card-footer"><span>~1 min</span><span>5-point scale</span></div>
+            </a>
           </article>
         </div>
       </div>
