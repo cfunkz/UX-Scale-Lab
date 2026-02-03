@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <strong>Collection of 13 research-validated UX questionnaires with automatic scoring and export.</strong><br>
+  <strong>Collection of 12 UX questionnaires with automatic scoring and export.</strong><br>
   Privacy-first • Browser-only • PDF/CSV/TXT export • Shareable scale links
 </p>
 
@@ -29,7 +29,7 @@
 https://uxscalelabs.online/
 
 ## Features
-- 13 academically validated UX scales   
+- 12 academically valid UX scales   
 - All processing happens in the browser, no data leaves your device  
 - Export results as PDF, CSV or TXT (zipped bundle)  
 - Mobile-responsive and touch-friendly interface  
