@@ -1,4 +1,4 @@
-// Questionnaire Definitions
+// ─── Questionnaire Definitions ─────────────────────────────────
 const QUESTIONNAIRES = {
   'sus': {
     id: 'sus', abbr: 'SUS', name: 'System Usability Scale',
@@ -73,7 +73,6 @@ const QUESTIONNAIRES = {
     id: 'pssuq', abbr: 'PSSUQ', name: 'Post-Study System Usability Questionnaire',
     citation: 'Lewis, J.R. (2002)',
     scaleMin: 1, scaleMax: 7, scoreMin: 1, scoreMax: 7,
-    // FIX: standard presentation is Disagree -> Agree (so higher is better)
     labels: ['Strongly Disagree', 'Strongly Agree'],
     subscales: {
       sysuse: { name: 'System Usefulness', items: [1,2,3,4,5,6] },
@@ -232,7 +231,7 @@ const QUESTIONNAIRES = {
   }
 };
 
-// Scoring Algorithms
+// ─── Scoring Algorithms ────────────────────────────────────────
 const SCORING = {
   sus(resp, q) {
     let sum = 0;
@@ -268,7 +267,7 @@ const SCORING = {
     let sum = 0;
     q.questions.forEach(item => {
       const val = resp[item.id];
-      if (val !== undefined) sum += val; // raw 1..7
+      if (val !== undefined) sum += val;
     });
     const score = ((sum - 2) / 12) * 100;
     return {
@@ -309,10 +308,8 @@ const SCORING = {
       }
     });
 
-    const avg = sum / count; // raw average on the questionnaire scale
+    const avg = sum / count;
     const overall = Math.round(avg * 100) / 100;
-
-    // FIX: scale-aware interpretation/grade using normalized % of the scale range
     const pct = ((avg - q.scaleMin) / (q.scaleMax - q.scaleMin)) * 100;
 
     const subscales = {};
@@ -340,14 +337,14 @@ const SCORING = {
   }
 };
 
-// State
+// ─── State ─────────────────────────────────────────────────────
 let currentQ = null, responses = {}, results = null;
 
-// Helpers
+// ─── Helpers ───────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
 const scrollTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
 
-// Sections
+// ─── Sections ──────────────────────────────────────────────────
 function showSection(section, { scroll = true } = {}) {
   ['home', 'questionnaire', 'results'].forEach(s => {
     $(`${s}-section`).classList.toggle('hidden', s !== section);
@@ -360,11 +357,13 @@ const showQuestionnaire = (opts) => showSection('questionnaire', opts);
 const showResults = (opts) => showSection('results', opts);
 const backToQuestionnaire = () => showQuestionnaire();
 
-// Questionnaire load
+// ─── Load Questionnaire ────────────────────────────────────────
 function loadQuestionnaire(id) {
   currentQ = QUESTIONNAIRES[id];
   responses = {};
   results = null;
+
+  document.title = currentQ.abbr + ' \u2013 ' + currentQ.name + ' | UX Scale Labs';
 
   $('q-abbr').textContent = currentQ.abbr;
   $('q-title').textContent = currentQ.name;
@@ -375,42 +374,27 @@ function loadQuestionnaire(id) {
   showQuestionnaire();
 }
 
-// --------------------
-// Query-string routing
-// --------------------
-// Supports:
-//   /                -> home
-//   /?q=sus          -> questionnaire for sus
-//   /?q=umux-lite    -> questionnaire for umux-lite
-//
-// Also supports a loose format if you really want: /?sus
-// (i.e. param key with no value)
+// ─── Path-Based Routing (SEO-friendly, no redirects) ──────────
 function getRouteId() {
+  // 1. Clean URL path: /sus/ -> sus
+  const path = location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
+  if (path && QUESTIONNAIRES[path]) return path;
+
+  // 2. Query string fallback: ?q=sus (backward compat)
   const params = new URLSearchParams(location.search);
-
-  // Normal: ?q=sus
   const q = (params.get('q') || '').trim().toLowerCase();
-  if (q) return q;
+  if (q && QUESTIONNAIRES[q]) return q;
 
-  // Loose: ?sus (key exists, value empty)
+  // 3. Loose format: ?sus
   for (const [key, val] of params.entries()) {
-    if (key && !val) return key.toLowerCase();
+    if (key && !val && QUESTIONNAIRES[key.toLowerCase()]) return key.toLowerCase();
   }
 
   return '';
 }
 
 function setRoute(id = '') {
-  const url = new URL(location.href);
-
-  // Clear existing query
-  url.search = '';
-
-  if (id) {
-    // Primary format: ?q=sus
-    url.searchParams.set('q', id);
-  }
-
+  const url = id ? '/' + id + '/' : '/';
   history.pushState({}, '', url);
   applyRoute();
 }
@@ -419,43 +403,43 @@ function applyRoute() {
   const id = getRouteId();
 
   if (id && QUESTIONNAIRES[id]) {
+    // Upgrade old query-string URLs to clean paths (no page reload)
+    if (location.search) {
+      history.replaceState({}, '', '/' + id + '/');
+    }
     loadQuestionnaire(id);
     return;
   }
 
-  // Home view (don’t force scroll if user used an anchor link)
+  document.title = 'UX Scale Labs | UX Research Questionnaires';
   showHome();
 }
 
-// Navigation actions helpers
-function go(id = '') {
+// ─── Navigation ────────────────────────────────────────────────
+function go(id) {
   setRoute(id);
 }
+
 function goHome() {
   setRoute('');
 }
 
-// About should always work, regardless of current view
 function goAbout() {
-  // Ensure home is visible, then scroll to #about
-  setRoute('');           // clears ?q=
+  setRoute('');
   showHome({ scroll: false });
-
-  // let layout update before scrolling
   requestAnimationFrame(() => {
     const el = document.getElementById('about');
     if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
   });
 }
 
-// Back/forward support
+// Back / forward
 addEventListener('popstate', applyRoute);
 
-// Initial load
+// ─── Init ──────────────────────────────────────────────────────
 addEventListener('DOMContentLoaded', () => {
   applyRoute();
 
-  // Form submit (kept as-is)
   const form = $('questionnaire-form');
   if (form) {
     form.addEventListener('submit', e => {
@@ -471,7 +455,7 @@ addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Render Questions
+// ─── Render Questions ──────────────────────────────────────────
 function renderQuestions() {
   const container = $('questions-container');
   container.innerHTML = '';
@@ -517,6 +501,7 @@ function resetForm() {
   $('system-name').value = '';
 }
 
+// ─── Display Results ───────────────────────────────────────────
 function displayResults() {
   if (!results || !currentQ) return;
 
@@ -526,14 +511,12 @@ function displayResults() {
   $('interpretation-text').textContent = results.interpretation;
   $('grade-badge').textContent = 'Grade: ' + results.grade;
 
-  // Animate score circle
   const progress = $('score-progress');
   const circumference = 339.292;
   let pct = currentQ.scoreMax === 100 ? results.overall / 100 :
     (results.overall - currentQ.scoreMin) / (currentQ.scoreMax - currentQ.scoreMin);
   setTimeout(() => { progress.style.strokeDashoffset = circumference - (pct * circumference); }, 100);
 
-  // Subscales
   const subContainer = $('subscales-container');
   subContainer.innerHTML = '';
   if (results.subscales && Object.keys(results.subscales).length) {
@@ -548,7 +531,6 @@ function displayResults() {
     });
   }
 
-  // Table (SUS adjusted is contribution 0..4, but kept your label)
   const tbody = $('responses-tbody');
   tbody.innerHTML = currentQ.questions.map(q => {
     const resp = responses[q.id];
@@ -559,7 +541,7 @@ function displayResults() {
   showResults();
 }
 
-// Export Functions
+// ─── Exports ───────────────────────────────────────────────────
 const stamp = () => new Date().toISOString().slice(0, 10);
 const sysName = () => $('system-name').value || 'Unnamed System';
 const baseName = () => `${currentQ.abbr}_Results_${stamp()}`;
@@ -604,7 +586,7 @@ function generatePDF(systemName) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     let y = 20;
-    doc.setFillColor(26, 54, 93);
+    doc.setFillColor(15, 23, 42);
     doc.rect(0, 0, 210, 40, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(20);
@@ -615,7 +597,7 @@ function generatePDF(systemName) {
     doc.text('Questionnaire Results', 20, 26);
     doc.text('Generated: ' + new Date().toLocaleDateString(), 20, 34);
     y = 55;
-    doc.setTextColor(26, 54, 93);
+    doc.setTextColor(15, 23, 42);
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
     doc.text(currentQ.abbr + ' - ' + currentQ.name, 20, y);
@@ -625,9 +607,9 @@ function generatePDF(systemName) {
     doc.setFont('helvetica', 'normal');
     doc.text('System: ' + systemName, 20, y);
     y += 15;
-    doc.setFillColor(247, 250, 252);
+    doc.setFillColor(248, 250, 252);
     doc.roundedRect(20, y, 170, 35, 3, 3, 'F');
-    doc.setTextColor(183, 121, 31);
+    doc.setTextColor(37, 99, 235);
     doc.setFontSize(32);
     doc.setFont('helvetica', 'bold');
     doc.text(String(results.overall), 35, y + 25);
@@ -636,7 +618,7 @@ function generatePDF(systemName) {
     doc.text(currentQ.scoreMax === 100 ? '/100' : '/' + currentQ.scoreMax, 70, y + 25);
     doc.text('Grade: ' + results.grade, 140, y + 25);
     y += 45;
-    doc.setTextColor(26, 54, 93);
+    doc.setTextColor(15, 23, 42);
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.text('Interpretation', 20, y);
@@ -647,7 +629,7 @@ function generatePDF(systemName) {
     const lines = doc.splitTextToSize(results.interpretation, 170);
     doc.text(lines, 20, y);
     y += lines.length * 5 + 10;
-    doc.setTextColor(26, 54, 93);
+    doc.setTextColor(15, 23, 42);
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.text('Responses', 20, y);
@@ -656,7 +638,7 @@ function generatePDF(systemName) {
     doc.setFont('helvetica', 'normal');
     currentQ.questions.forEach(q => {
       if (y > 270) { doc.addPage(); y = 20; }
-      doc.setTextColor(183, 121, 31);
+      doc.setTextColor(37, 99, 235);
       doc.text('Q' + q.id, 20, y);
       doc.setTextColor(60, 60, 60);
       const txt = q.text.length > 80 ? q.text.substring(0, 77) + '...' : q.text;
@@ -722,7 +704,7 @@ function generateTXT(systemName) {
   return lines.join('\n');
 }
 
-// Print Questionnaire
+// ─── Print Questionnaire ───────────────────────────────────────
 function printQuestionnaire(id) {
   const q = QUESTIONNAIRES[id];
   if (!q) return;
@@ -730,7 +712,7 @@ function printQuestionnaire(id) {
   let html = `
     <div class="print-page">
       <div class="print-header">
-        <h1>${q.abbr} – ${q.name}</h1>
+        <h1>${q.abbr} \u2013 ${q.name}</h1>
         <p>${q.citation}</p>
       </div>
       <div class="print-meta">
@@ -751,7 +733,7 @@ function printQuestionnaire(id) {
     html += `</div>`;
   });
 
-  html += `<div class="print-footer">Generated by UX Scale Labs • uxscalelabs.online</div></div>`;
+  html += `<div class="print-footer">Generated by UX Scale Labs \u2022 uxscalelabs.online</div></div>`;
 
   $('print-template').innerHTML = html;
   window.print();

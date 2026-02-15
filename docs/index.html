@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UX Scale Labs | Research Questionnaires</title>
+  <title>UX Scale Labs | UX Research Questionnaires</title>
   <link rel="icon" href="/favicon.ico">
-  <meta name="description" content="User experience (UX) questionnaires with scoring algorithms. Includes SUS, UMUX, CSUQ and more. Instant scoring and exports.">
+  <meta name="description" content="Free UX questionnaires with instant scoring algorithms. Includes SUS, UMUX, CSUQ, PSSUQ and more. Export as PDF, CSV, or TXT. Runs entirely in your browser.">
   <link rel="canonical" href="https://uxscalelabs.online/">
   <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#1a365d">
-  <meta property="og:title" content="UX Scale Labs – UX Questionnaires & Scoring">
-  <meta property="og:description" content="UX questionnaires with instant scoring and exports. Runs entirely in the browser.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:title" content="UX Scale Labs – UX Research Questionnaires & Scoring">
+  <meta property="og:description" content="Free UX questionnaires with instant scoring and exports. Runs entirely in your browser.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://uxscalelabs.online/">
   <script type="application/ld+json">
@@ -34,20 +34,18 @@
     ]
   }
   </script>
-
-  <meta name="theme-color" content="#1a365d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container header-inner">
       <a href="/" onclick="goHome(); return false;" class="logo">
-        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
         </svg>
         <span>UX Scale Labs</span>
@@ -64,7 +62,7 @@
     <section class="hero container">
       <span class="badge">12 Questionnaires</span>
       <h1>Measure User Experience<br><em>with Ease</em></h1>
-      <p>UX questionnaires with scoring algorithms. Export as PDF, CSV, or TXT. All data stays in your browser.</p>
+      <p>Research questionnaires with scoring algorithms. Export as PDF, CSV, or TXT. All data stays in your browser.</p>
     </section>
 
     <section class="container scales-section">
@@ -72,50 +70,50 @@
       <div class="category">
         <div class="category-header"><span class="num">01</span><h2>Usability Scales</h2></div>
         <div class="cards grid-3">
-          <article class="card" onclick="go('sus')">
+          <a href="/sus/" onclick="event.preventDefault(); go('sus')" class="card">
             <div class="card-top"><span class="tag">SUS</span><span class="meta">10 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('sus')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('sus')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>System Usability Scale</h3>
             <p>The industry standard for measuring perceived usability. Yields a score from 0-100.</p>
             <div class="card-footer"><span>~3 min</span><span>5-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('umux')">
+          <a href="/umux/" onclick="event.preventDefault(); go('umux')" class="card">
             <div class="card-top"><span class="tag">UMUX</span><span class="meta">4 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('umux')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Usability Metric for User Experience</h3>
             <p>A compact alternative to SUS with comparable reliability and validity.</p>
             <div class="card-footer"><span>~1 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('umux-lite')">
+          <a href="/umux-lite/" onclick="event.preventDefault(); go('umux-lite')" class="card">
             <div class="card-top"><span class="tag">UMUX-L</span><span class="meta">2 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('umux-lite')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('umux-lite')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>UMUX-Lite</h3>
             <p>Ultra-short usability measure for minimal participant burden.</p>
             <div class="card-footer"><span>~30 sec</span><span>7-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('csuq')">
+          <a href="/csuq/" onclick="event.preventDefault(); go('csuq')" class="card">
             <div class="card-top"><span class="tag">CSUQ</span><span class="meta">16 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csuq')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('csuq')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Computer System Usability Questionnaire</h3>
             <p>IBM's comprehensive measure with subscales for system and interface quality.</p>
             <div class="card-footer"><span>~5 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('pssuq')">
+          <a href="/pssuq/" onclick="event.preventDefault(); go('pssuq')" class="card">
             <div class="card-top"><span class="tag">PSSUQ</span><span class="meta">16 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('pssuq')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('pssuq')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Post-Study System Usability Questionnaire</h3>
             <p>Lab-based version of CSUQ for controlled usability studies.</p>
             <div class="card-footer"><span>~5 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
         </div>
       </div>
 
@@ -123,23 +121,23 @@
       <div class="category">
         <div class="category-header"><span class="num">02</span><h2>Task-Level Measures</h2></div>
         <div class="cards grid-2">
-          <article class="card" onclick="go('seq')">
+          <a href="/seq/" onclick="event.preventDefault(); go('seq')" class="card">
             <div class="card-top"><span class="tag">SEQ</span><span class="meta">1 item</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('seq')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('seq')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Single Ease Question</h3>
             <p>Quick task difficulty assessment after each task completion.</p>
             <div class="card-footer"><span>~10 sec</span><span>7-point scale</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('asq')">
+          <a href="/asq/" onclick="event.preventDefault(); go('asq')" class="card">
             <div class="card-top"><span class="tag">ASQ</span><span class="meta">3 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('asq')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('asq')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>After-Scenario Questionnaire</h3>
             <p>Measures satisfaction with task completion across ease, time, and support.</p>
             <div class="card-footer"><span>~1 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
         </div>
       </div>
 
@@ -147,23 +145,23 @@
       <div class="category">
         <div class="category-header"><span class="num">03</span><h2>Comprehensive UX Measures</h2></div>
         <div class="cards grid-2">
-          <article class="card" onclick="go('use')">
+          <a href="/use/" onclick="event.preventDefault(); go('use')" class="card">
             <div class="card-top"><span class="tag">USE</span><span class="meta">30 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('use')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('use')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>USE Questionnaire</h3>
             <p>Evaluates Usefulness, Satisfaction, and Ease of Use with four subscales.</p>
             <div class="card-footer"><span>~8 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('tam')">
+          <a href="/tam/" onclick="event.preventDefault(); go('tam')" class="card">
             <div class="card-top"><span class="tag">TAM</span><span class="meta">12 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('tam')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('tam')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Technology Acceptance Model</h3>
             <p>Predicts technology adoption through perceived usefulness and ease of use.</p>
             <div class="card-footer"><span>~4 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
         </div>
       </div>
 
@@ -171,16 +169,14 @@
       <div class="category">
         <div class="category-header"><span class="num">04</span><h2>Satisfaction & Loyalty</h2></div>
         <div class="cards grid-2">
-          <article class="card">
-            <a href="/csat/" onclick="go('csat'); return false;" style="text-decoration:none; color:inherit; display:block;">
-              <div class="card-top"><span class="tag">CSAT</span><span class="meta">5 items</span>
-                <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('csat')" title="Print questionnaire">⎙</button>
-              </div>
-              <h3>Customer Satisfaction Score</h3>
-              <p>Direct measurement of customer satisfaction with product or service.</p>
-              <div class="card-footer"><span>~1 min</span><span>5-point scale</span></div>
-            </a>
-          </article>
+          <a href="/csat/" onclick="event.preventDefault(); go('csat')" class="card">
+            <div class="card-top"><span class="tag">CSAT</span><span class="meta">5 items</span>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('csat')" title="Print questionnaire">&#x2399;</button>
+            </div>
+            <h3>Customer Satisfaction Score</h3>
+            <p>Direct measurement of customer satisfaction with product or service.</p>
+            <div class="card-footer"><span>~1 min</span><span>5-point scale</span></div>
+          </a>
         </div>
       </div>
 
@@ -188,23 +184,23 @@
       <div class="category">
         <div class="category-header"><span class="num">05</span><h2>Generic Measures</h2></div>
         <div class="cards grid-2">
-          <article class="card" onclick="go('learnability')">
+          <a href="/learnability/" onclick="event.preventDefault(); go('learnability')" class="card">
             <div class="card-top"><span class="tag">SRL</span><span class="meta">6 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('learnability')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('learnability')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Self-Reported Learnability</h3>
             <p>Assesses how easily users can learn to use a system.</p>
             <div class="card-footer"><span>~2 min</span><span>7-point Likert</span></div>
-          </article>
+          </a>
 
-          <article class="card" onclick="go('basic-ux')">
+          <a href="/basic-ux/" onclick="event.preventDefault(); go('basic-ux')" class="card">
             <div class="card-top"><span class="tag">BUX</span><span class="meta">8 items</span>
-              <button class="print-btn" onclick="event.stopPropagation(); printQuestionnaire('basic-ux')" title="Print questionnaire">⎙</button>
+              <button class="print-btn" onclick="event.preventDefault(); event.stopPropagation(); printQuestionnaire('basic-ux')" title="Print questionnaire">&#x2399;</button>
             </div>
             <h3>Basic UX Satisfaction Survey</h3>
             <p>General-purpose UX satisfaction measure for quick assessments.</p>
             <div class="card-footer"><span>~2 min</span><span>5-point Likert</span></div>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -213,7 +209,7 @@
   <!-- Questionnaire -->
   <main id="questionnaire-section" class="hidden">
     <div class="container narrow">
-      <button onclick="goHome()" class="back-btn">← Back to Scales</button>
+      <button onclick="goHome()" class="back-btn">&larr; Back to Scales</button>
       <header class="q-header">
         <span id="q-abbr" class="tag-lg">SUS</span>
         <h1 id="q-title">System Usability Scale</h1>
@@ -236,14 +232,14 @@
   <!-- Results -->
   <main id="results-section" class="hidden">
     <div class="container">
-      <button onclick="backToQuestionnaire()" class="back-btn">← Back to Questionnaire</button>
+      <button onclick="backToQuestionnaire()" class="back-btn">&larr; Back to Questionnaire</button>
       <h1 class="results-title">Results</h1>
       <div class="results-grid">
         <div class="score-card">
           <div class="score-circle">
             <svg viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" stroke-width="8"/>
-              <circle id="score-progress" cx="60" cy="60" r="54" fill="none" stroke="var(--primary)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#e2e8f0" stroke-width="8"/>
+              <circle id="score-progress" cx="60" cy="60" r="54" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
             </svg>
             <div class="score-value">
               <span id="main-score">0</span>
@@ -271,26 +267,21 @@
 
       <div class="export-section">
         <h3>Export Results</h3>
-
         <div class="export-row">
           <div class="export-left">
-            <button class="export-zip" onclick="exportResults()" title="Download a ZIP with selected formats">
-              🗜️ <span>ZIP</span>
-            </button>
+            <button class="export-zip" onclick="exportResults()" title="Download a ZIP with selected formats">ZIP</button>
           </div>
-
           <div class="export-toggles" aria-label="ZIP bundle formats">
             <label><input type="checkbox" id="export-pdf" checked> PDF</label>
             <label><input type="checkbox" id="export-csv" checked> CSV</label>
             <label><input type="checkbox" id="export-txt" checked> TXT</label>
           </div>
         </div>
-
         <div class="export-btns">
-          <button class="btn-primary" onclick="downloadPDF()">📄 PDF</button>
-          <button class="btn-primary" onclick="downloadCSV()">🧾 CSV</button>
-          <button class="btn-primary" onclick="downloadTXT()">📝 TEXT</button>
-          <button class="btn-primary" onclick="sharePDF()">🔗 SHARE</button>
+          <button class="btn-primary" onclick="downloadPDF()">PDF</button>
+          <button class="btn-primary" onclick="downloadCSV()">CSV</button>
+          <button class="btn-primary" onclick="downloadTXT()">TXT</button>
+          <button class="btn-primary" onclick="sharePDF()">SHARE</button>
         </div>
       </div>
     </div>
@@ -303,17 +294,17 @@
       <p class="about-desc">A collection of research questionnaires for measuring user experience. All scoring algorithms are implemented according to their original academic publications.</p>
       <div class="features">
         <div class="feature">
-          <div class="icon">🔒</div>
+          <div class="icon">&#x1F512;</div>
           <h4>Privacy First</h4>
           <p>All processing happens in your browser. No data is ever sent to any server.</p>
         </div>
         <div class="feature">
-          <div class="icon">✓</div>
+          <div class="icon">&#x2713;</div>
           <h4>Known Algorithms</h4>
           <p>Scoring methods from peer-reviewed academic publications.</p>
         </div>
         <div class="feature">
-          <div class="icon">↓</div>
+          <div class="icon">&#x2193;</div>
           <h4>Multiple Exports</h4>
           <p>Download results as PDF reports, CSV data, or plain text.</p>
         </div>
@@ -322,12 +313,11 @@
   </section>
 
   <footer>
-    <p>© 2026 UX Scale Labs. Open source under MIT License.</p>
+    <p>&copy; 2026 UX Scale Labs. Open source under MIT License.</p>
     <p class="small">Not affiliated with the original scale authors or their institutions.</p>
   </footer>
 
   <div id="print-template" class="print-only"></div>
-
-  <script src="app.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>
